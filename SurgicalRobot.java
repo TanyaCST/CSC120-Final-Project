@@ -37,7 +37,7 @@ public class SurgicalRobot implements Contract{
         this.yCoordinate = yCoordinate;
         this.size = size;
         this.originalSize = this.size; //Preserves size entered by user incase of resizing (157-162)
-        this.inventory = new Hashtable<String, String>();
+        this.inventory = new Hashtable<String, Implement>();
     }
 
     /**
@@ -65,7 +65,8 @@ public class SurgicalRobot implements Contract{
      * @param function
      */
     private void addDescription(String equipment, String description){
-        this.inventory.put(equipment, description);
+        Implement surgicalItem = new Implement(true, description);
+        this.inventory.put(equipment, surgicalItem);
         //this.functions.put(equipment, disinfect);
     }
 
@@ -75,7 +76,8 @@ public class SurgicalRobot implements Contract{
      */
     public void grab(String equipment){ //Says function of object in canneddList
         if (this.inventory.containsKey(equipment)){
-            String function =  this.inventory.get(equipment);
+            Implement function =  this.inventory.get(equipment);
+            System.out.println(function);
             System.out.println("I just grabbed " + equipment + "./n" + function);
             performAction("grab");
         }
