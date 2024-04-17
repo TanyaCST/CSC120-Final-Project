@@ -1,0 +1,10 @@
+//Put in alternatives to naming
+forceps
+syringes
+scissors
+lint
+wool
+x-ray scan
+advil
+sewing thread
+disinfectant wool

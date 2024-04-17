@@ -1,9 +1,9 @@
 public interface Contract {
 
-    void grab(String item);
-    String drop(String item);
-    void examine(String item);
-    void use(String item);
+    void grab(String equipment);
+    String drop(String equipment);
+    void examine(String equipment);
+    void use(String equipment);
     boolean walk(String direction);
     boolean fly(int x, int y);
     Number shrink();
