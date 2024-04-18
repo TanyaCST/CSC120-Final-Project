@@ -128,7 +128,10 @@ public class SurgicalRobot implements Contract{
             }
             else if (!allowedEquipment.contains(equipment)){
                 System.out.println("Sorry, you can't use " + equipment + " in surgery.\nYou must receive approval from Emily, Olohi, or Tanya to do that.");
-                
+                System.out.println("Quitting surgery.....\nWe doubt you're a surgeon....\nWho brings " + equipment + " to a surgical room?");
+                userInput.close();
+                System.exit(1);
+
             }}
     }
 
