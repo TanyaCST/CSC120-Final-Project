@@ -58,7 +58,81 @@ public class SurgicalRobot implements Contract{
         }
     }
 
-    //Methods
+    //Getters and Setters
+    /**
+     * get name of robot
+     * @return
+     */
+    public String getName(){
+        return name;
+    }
+
+    /**
+     * get x coordinate of robot
+     * @return
+     */
+    public double getX(){
+        return x;
+    }
+
+    /**
+     * get y coordinate of robot
+     * @return
+     */
+    public double getY(){
+        return y;
+    }
+
+
+    /**
+     * get robot's size
+     * @return
+     */
+    public double getSize(){
+        return size;
+    }
+
+    /**
+     * get robot's original size
+     * @return
+     */
+    public double getOriginalSize(){
+        return originalSize;
+    }
+
+    /**
+     * get
+     * @return
+     */
+    public Stack<String> getActions(){
+        return actions;
+    }
+
+    /**
+     * get current state of robot
+     * @return
+     */
+    public String getCurrentState(){
+        return currentState;
+    }
+
+    /**
+     * get inventory
+     * @return
+     */
+    public Hashtable<String,String> getFunctions(){
+        return functions;
+    }
+
+    /**
+     * get active (a number that tells you is the robot active or not)
+     * @return
+     */
+    public int active(){
+        return active;
+    }
+
+    //methods
     /**
      * Writes the action performed to "memory"
      * @param item
