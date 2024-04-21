@@ -40,6 +40,80 @@ public class SurgicalRobot implements Contract{
         this.inventory = new Hashtable<String, Implement>();
     }
 
+    //Getters and Setters
+    /**
+     * get name of robot
+     * @return
+     */
+    public String getName(){
+        return name;
+    }
+
+    /**
+     * get x coordinate of robot
+     * @return
+     */
+    public double xCoordinate(){
+        return xCoordinate;
+    }
+
+    /**
+     * get y coordinate of robot
+     * @return
+     */
+    public double yCoordinate(){
+        return yCoordinate;
+    }
+
+    /**
+     * get robot's size
+     * @return
+     */
+    public double getSize(){
+        return size;
+    }
+
+    /**
+     * get robot's original size
+     * @return
+     */
+    public double getOriginalSize(){
+        return originalSize;
+    }
+
+    /**
+     * get 
+     * @return
+     */
+    public Stack<String> getActions(){
+        return actions;
+    }
+
+    /**
+     * get current state of robot
+     * @return
+     */
+    public String curreState(){
+        return currentState;
+    }
+
+    /**
+     * get inventory
+     * @return
+     */
+    public Hashtable<String,Implement> getInventory(){
+        return inventory;
+    }
+
+    /**
+     * get active (a number that tells you is the robot active or not)
+     * @return
+     */
+    public int active(){
+        return active;
+    }
+
+    //Methods
     /**
      * Writes the action performed to "memory"
      * @param item
