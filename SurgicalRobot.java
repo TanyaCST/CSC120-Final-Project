@@ -1,6 +1,11 @@
 //Import needed modules
+import java.io.EOFException;
+import java.util.ArrayList;
 import java.util.Hashtable; 
 import java.util.Stack;
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;
+
 
 import javax.sound.midi.Soundbank;
 
@@ -10,14 +15,15 @@ public class SurgicalRobot implements Contract{
 
     //Made attributes private because I don't want random strangers ordering my robot around. Can be harmful to the company's security.
     private String name; //Name of SurgicalRobot
-    private double x; //Location of Robot (x, y)
-    private double y;
+    private double xCoordinate; //Location of Robot (x, y)
+    private double yCoordinate;
     private double size; //Specifies robot's size
     private double originalSize;
     private Stack<String> actions = new Stack<>();//Undo: Plan on appending each method. What do I pass in, not possibly a string? A method?
     public String currentState; //Sets the currentState of the robot
-    public Hashtable<String, String> functions; //allows surgeon to add new functions
-    Scanner input = new Scanner(System.in); //reads input from the surgeon
+    public Hashtable<String, Implement> inventory; //inventory with functions
+    Scanner userInput = new Scanner(System.in); //reads input from the surgeon
+    ArrayList<String> allowedEquipment;
     int active = 1; //Sets active state of robot to 1, meaning awake, once created.
 
     
@@ -28,14 +34,28 @@ public class SurgicalRobot implements Contract{
      * @param y
      * @param size
      */
-    public SurgicalRobot(String name, double x, double y, double size){
+    public SurgicalRobot(String name, double xCoordinate, double yCoordinate, double size){
         this.name = name;
         //Is it possible to do (x, y) instead?
-        this.x = x;
-        this.y = y;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
         this.size = size;
         this.originalSize = this.size; //Preserves size entered by user incase of resizing (157-162)
-        this.functions = new Hashtable<String, String>();
+        this.inventory = new Hashtable<String, Implement>();
+        this.allowedEquipment = new ArrayList<>();
+
+        try{
+            File allowedEquipment = new File("equipments.txt"); //file cannot be resolved
+            Scanner fileReader = new Scanner(allowedEquipment); //Reads allowable equipment from equipment file
+            while (fileReader.hasNextLine()){ //Adds new equipments to the arraylist "instruments"
+                this.allowedEquipment.add(fileReader.nextLine());
+            } 
+            fileReader.close();
+        }
+        catch (FileNotFoundException e) { // Sometimes things go wrong; we'll handle that here
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     // Do it again because of merge issue
@@ -120,98 +140,110 @@ public class SurgicalRobot implements Contract{
      */
     private void performAction(String item){
         currentState = item;
-        actions.push(item); //Adds item to Stack "actions"
+        actions.push(item); //Adds equipment to Stack "actions"
         }
 
     //Undoes the last action in "memory"
-    public void undo(){
+    //Would like to be able to grab and drop by the way--- kinda like inverse options
+    public void undo(){ 
         if (!actions.isEmpty()){
-            String lastAction = actions.pop();
-            System.out.println(" Undoing " + lastAction + " ");
+            String lastAction = actions.peek();
+            System.out.println("Sorry, in surgery, mistakes aren't permittable! Cannot undo " + lastAction + ". Be careful next time");
 
         }
-    }
-    //Redo the last action in memory
-    public void redo(){
-        //Fill in at some point
     }
 
     /**
      * Adds a tool and its functions
-     * @param tool
+     * @param equipment
      * @param function
      */
-    private void addFunction(String tool, String function){
-        this.functions.put(tool, function);
+    private void addDescription(String equipment, String description){
+        Implement surgicalItem = new Implement(true, description);
+        this.inventory.put(equipment, surgicalItem);
+        //this.functions.put(equipment, disinfect);
     }
+
   /**
-     * Grabs item
-     * @param item
+     * Grabs equipment
+     * @param equipment
      */
-    public void grab(String item){ //Says function of object in canneddList
-        System.out.println("I just grabbed the " + item);
-        rest(1000);
-        performAction("Grab");
-        //Checks if item is in list of functions and shows function if available.
-        //Can make doctor say its function if not there
-        if (this.functions.containsKey(item)){
-            System.out.println(this.functions.get(item));
+    public void grab(String equipment){ //Says function of object in canneddList
+        if (this.inventory.contains(equipment)){
+            String function =  this.inventory.get(equipment.toLowerCase()).getDescription(); //gets the description of the equipement from its Implement class
+            System.out.println(function);
+            System.out.println("I just grabbed " + equipment + "./n" + function);
+            performAction("grab");
         }
+        
+        //Not in inventory?
         else{
-            System.out.println("Do you want to add the function of " + item + " to the library?\nEnter Yes or No");
-            String operator = input.nextLine();
-            rest(1000); //Delays the program for 1s
-            if (operator.toLowerCase().equals("yes")){
-                //Ask doctor for function using scanner
-                System.out.println("What's the function of " + item + "? Start with they are or it is");
-                operator = input.nextLine();
-                //Adds function to hashtable of functions
-                this.functions.put(item, operator);
+            //Check bigger allowedEquipment store
+            if (allowedEquipment.contains(equipment.toLowerCase())){
+                System.out.println("Do you want to add the function of " + equipment + " to the library?\nEnter Yes or No");
+
+            //Interaction with user
+                //yes or no
+                String operator = userInput.nextLine().toLowerCase();
+                while (!operator.equals("yes") && !operator.equals("no")){ //Prevents user from entering anything that's not yes or no
+                    System.out.println("I didn't quite get that.\nEnter yes or no to continue.");
+                    operator = userInput.nextLine().toLowerCase();
+                }
+                    //yes? Adds to inventory
+                if (operator.toLowerCase().equals("yes")){
+                System.out.println("What's the function of " + equipment + "? Start with they are or it is"); //Ask doctor for function using scanner
+                this.inventory.put(equipment.toLowerCase(), new Implement(true, userInput.nextLine().toLowerCase())); //Adds description to inventory 
                 rest(1000);
-                System.out.println("Added!");
+                System.out.println("Added!");}
+                    //No? Okay! Assume user is just borrowing
+                else if(operator.toLowerCase().equals("no")){
+                    rest(1000);
+                    System.out.println("Okay. Call .addFunction() whenever you want to add the function of " + equipment + " to the library.");
+                }
+                performAction("grab");
             }
-            else if(operator.toLowerCase().equals("no")){
-                rest(1000);
-                System.out.println("Okay. Call .addFunction() whenever you want to add the function of " + item + " to the library.");
-            }
-            else{
-                rest(1000);
-                System.out.println("I didn't quite get that.");
-        }
+            else if (!allowedEquipment.contains(equipment.toLowerCase())){
+                System.out.println("Sorry, you can't use " + equipment + " in surgery. You must receive approval from Emily, Olohi, or Tanya to do that.");
+                System.out.println(".....We doubt you're qualified to serve as a surgeon....Who brings " + equipment + " to a surgical room?");
+                System.out.println("Error: Quitting Surgery"); //Add person's name
+                userInput.close();
+                System.exit(1);
+
+            }}
     }
-}
+
   /**
-     * Drops an item
+     * Drops an equipment
      * @param tool
      * @param function
      */   
-    public String drop(String item){
+    public String drop(String equipment){
         performAction("Drop!");
-        System.out.println("I just dropped the " + item);
-        return("I just dropped the " + item);}
+        System.out.println("I just dropped the " + equipment);
+        return("I just dropped the " + equipment);}
   /**
-     * Examines an item
+     * Examines an equipment
      * @param tool
      * @param function
      */   
-    public void examine(String item){
-        //Default response after examining item
-        String examine = ("Examining " + item + ".....\n" + item + " is a surgical equipment. " );
+    public void examine(String equipment){
+        //Default response after examining equipment
+        String examine = ("Examining " + equipment + ".....\n" + equipment + " is a surgical equipment. " );
         performAction("Examine");
         //Checks for additional functionality
-        if (this.functions.containsKey(item)){
-            examine += this.functions.get(item);
+        if (this.inventory.containsKey(equipment)){
+            examine += this.inventory.get(equipment);
         }
         System.out.println(examine);}
   /**
-     * Uses an item
+     * Uses an equipment
      * @param tool
      * @param function
      */   
-    public void use(String item){
-        System.out.println(".........What do you want me to do with " + item + "?.........\n.........Start with to in your response............");
-        String operator = input.nextLine().toLowerCase();
-        System.out.println("Gotcha!\nUsing " + item + " " + operator); //what if  "I want you to ?"
+    public void use(String equipment){
+        System.out.println(".........What do you want me to do with " + equipment + "?.........\n.........Start with to in your response............");
+        String operator = userInput.nextLine().toLowerCase();
+        System.out.println("Gotcha!\nUsing " + equipment + " " + operator); //what if  "I want you to ?"
         performAction("Use");//writes to memory
     }
     /**
@@ -236,9 +268,9 @@ public class SurgicalRobot implements Contract{
      * @param y
      * @return
      */
-    public boolean walk(double x, double y){
+    public boolean walk(double xCoordinate, double yCoordinate){
         try {
-            System.out.println("Changed position! At the coordinate (" + x + "," + y + ").");
+            System.out.println("Changed position! At the coordinate (" + xCoordinate + "," + yCoordinate + ").");
             performAction("Walk");
             return true; //Tentative. Haven't actually moved.    
         } catch (Exception e) {
@@ -252,11 +284,11 @@ public class SurgicalRobot implements Contract{
      * @param y
      * @return
      */
-    public boolean fly(int x, int y){ //Move x m and ym
+    public boolean fly(int xCoordinate, int yCoordinate){ //Move x m and ym
         try{
         System.out.println("----------Flyinggg!!! I love flying. It makes me refreshed.--------");
-        this.x += x; this.y += y;
-        System.out.println("At (" + this.x + "," + this.y + "). Yepeee");
+        this.xCoordinate += xCoordinate; this.yCoordinate += yCoordinate;
+        System.out.println("At (" + this.xCoordinate + "," + this.yCoordinate + "). Yepeee");
         performAction("Fly");
         return true;
     }
@@ -347,17 +379,19 @@ public class SurgicalRobot implements Contract{
     }
 
     public static void main(String[] args) {
+     //
+        int counter = 1;
         SurgicalRobot OlohIntel = new SurgicalRobot("OlohIntel", 0, 0, 50);
         System.out.println(OlohIntel); //Prints out robot's description
         System.out.println(); //Prints an empty line
         System.out.println("Do you want to invoke the showOptions?: Enter Yes or No");
-        while (OlohIntel.input.nextLine().toLowerCase().equals("no")){ //Doesn't allow program to proceed if user doesn't agree to see options
+        while (OlohIntel.userInput.nextLine().toLowerCase().equals("no")){ //Doesn't allow program to proceed if user doesn't agree to see options
             System.out.println("Enter YES to proceed. You can't use me without seeing my options");// Question: I would love to allow the user quit using quit(). How do I implement that?
-        }    
+        }
         OlohIntel.showOptions();
         OlohIntel.rest(1000); //Pauses program for 1s ot make it more real
         System.out.println("I'mma grab an equipment to start work. What equipment do you want to use?");
-        String equipment = OlohIntel.input.nextLine(); //Passes equipment to be used to the variable equipment
+        String equipment = OlohIntel.userInput.nextLine(); //Passes equipment to be used to the variable equipment
         OlohIntel.rest(1000);
         OlohIntel.grab(equipment); //Implements grab method
         OlohIntel.rest(1000);
@@ -367,7 +401,7 @@ public class SurgicalRobot implements Contract{
         //OlohIntel.drop("forceps"); Add to the end of the code
         OlohIntel.rest(1000);
         System.out.println("Confirm you want to use OlohIntel in the surgery.....\nYES OR NO");
-        String use = OlohIntel.input.nextLine().toLowerCase(); //use as a unique varaible to store user's response in preparation for invoking the use() method
+        String use = OlohIntel.userInput.nextLine().toLowerCase(); //use as a unique varaible to store user's response in preparation for invoking the use() method
         if (use.equals("no")){
             OlohIntel.rest(1000);
             System.out.println("Okay, bye!");}
@@ -378,26 +412,26 @@ public class SurgicalRobot implements Contract{
             System.out.println("--------------------------");
             OlohIntel.rest(1000);
             System.out.println("OlohIntel needs to walk to perform her function\nShould she walk in a specific cardinal direction or according to a coordinate?\n............Enter Cardinal or Coordinate");
-            String walkType = OlohIntel.input.nextLine().toLowerCase(); //Unique variable to store user's response in prep for invoking the walk() method
+            String walkType = OlohIntel.userInput.nextLine().toLowerCase(); //Unique variable to store user's response in prep for invoking the walk() method
             OlohIntel.rest(1000);
             while (!(walkType.equals("cardinal") | walkType.equals("coordinate"))){
                 System.out.println("Cardinal or Coordinate? Reenter!");} //Allows user to select which of the overloaded methods to use
                 if (walkType.equals("cardinal")){  
                     //Runs if user prefers cardinal directions
                     System.out.println("Enter direction: right/left/forward/backward");
-                    String direction = OlohIntel.input.nextLine().toLowerCase();
+                    String direction = OlohIntel.userInput.nextLine().toLowerCase();
                     OlohIntel.rest(1000);
                     OlohIntel.walk(direction);
                     System.out.println("--------------------------");}
                 else if ((walkType.equals("coordinate"))){ 
                     //Runs if user prefers coordinate directions
                     System.out.println("Enter x coordinate"); 
-                    double x = OlohIntel.input.nextInt();
+                    double x = OlohIntel.userInput.nextInt();
                     OlohIntel.rest(1000);
                     System.out.println("Enter y coordinate");
-                    double y = OlohIntel.input.nextInt();
+                    double y = OlohIntel.userInput.nextInt();
                     OlohIntel.rest(1000);
-                    OlohIntel.walk(x, y); }}
+                    OlohIntel.walk(x, y); }}}
         //Will invoke these in my game
         
         // OlohIntel.fly(5, 5); //Will invoke these in my game
@@ -414,5 +448,5 @@ public class SurgicalRobot implements Contract{
         }
 
 
-}
+
 
