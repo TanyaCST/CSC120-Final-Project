@@ -38,6 +38,7 @@ public class SurgicalRobot implements Contract{
         this.functions = new Hashtable<String, String>();
     }
 
+    // Do it again because of merge issue
     //Getters and Setters
     /**
      * get name of robot
