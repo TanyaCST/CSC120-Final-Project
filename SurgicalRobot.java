@@ -94,7 +94,7 @@ public class SurgicalRobot implements Contract{
      */
     public void grab(String equipment){ //Says function of object in canneddList
         if (this.inventory.contains(equipment)){
-            String function =  this.inventory.get(equipment).getDescription(); //gets the description of the equipement from its Implement class
+            String function =  this.inventory.get(equipment.toLowerCase()).getDescription(); //gets the description of the equipement from its Implement class
             System.out.println(function);
             System.out.println("I just grabbed " + equipment + "./n" + function);
             performAction("grab");
@@ -103,7 +103,7 @@ public class SurgicalRobot implements Contract{
         //Not in inventory?
         else{
             //Check bigger allowedEquipment store
-            if (allowedEquipment.contains(equipment)){
+            if (allowedEquipment.contains(equipment.toLowerCase())){
                 System.out.println("Do you want to add the function of " + equipment + " to the library?\nEnter Yes or No");
 
             //Interaction with user
@@ -116,7 +116,7 @@ public class SurgicalRobot implements Contract{
                     //yes? Adds to inventory
                 if (operator.toLowerCase().equals("yes")){
                 System.out.println("What's the function of " + equipment + "? Start with they are or it is"); //Ask doctor for function using scanner
-                this.inventory.put(equipment, new Implement(true, userInput.nextLine().toLowerCase())); //Adds description to inventory 
+                this.inventory.put(equipment.toLowerCase(), new Implement(true, userInput.nextLine().toLowerCase())); //Adds description to inventory 
                 rest(1000);
                 System.out.println("Added!");}
                     //No? Okay! Assume user is just borrowing
@@ -126,9 +126,10 @@ public class SurgicalRobot implements Contract{
                 }
                 performAction("grab");
             }
-            else if (!allowedEquipment.contains(equipment)){
-                System.out.println("Sorry, you can't use " + equipment + " in surgery.\nYou must receive approval from Emily, Olohi, or Tanya to do that.");
-                System.out.println("Quitting surgery.....\nWe doubt you're a surgeon....\nWho brings " + equipment + " to a surgical room?");
+            else if (!allowedEquipment.contains(equipment.toLowerCase())){
+                System.out.println("Sorry, you can't use " + equipment + " in surgery. You must receive approval from Emily, Olohi, or Tanya to do that.");
+                System.out.println(".....We doubt you're qualified to serve as a surgeon....Who brings " + equipment + " to a surgical room?");
+                System.out.println("Error: Quitting Surgery"); //Add person's name
                 userInput.close();
                 System.exit(1);
 
