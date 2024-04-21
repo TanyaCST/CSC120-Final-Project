@@ -1,7 +1,11 @@
 //Import needed modules
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.Hashtable; 
 import java.util.Stack;
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;
+
 
 import javax.sound.midi.Soundbank;
 
@@ -18,8 +22,8 @@ public class SurgicalRobot implements Contract{
     private Stack<String> actions = new Stack<>();//Undo: Plan on appending each method. What do I pass in, not possibly a string? A method?
     public String currentState; //Sets the currentState of the robot
     public Hashtable<String, Implement> inventory; //inventory with functions
-    Scanner readEquipment = new Scanner("equipments.txt"); //Reads allowable equipment from equipment file
     Scanner userInput = new Scanner(System.in); //reads input from the surgeon
+    ArrayList<String> allowedEquipment;
     int active = 1; //Sets active state of robot to 1, meaning awake, once created.
 
     
@@ -38,6 +42,20 @@ public class SurgicalRobot implements Contract{
         this.size = size;
         this.originalSize = this.size; //Preserves size entered by user incase of resizing (157-162)
         this.inventory = new Hashtable<String, Implement>();
+        this.allowedEquipment = new ArrayList<>();
+
+        try{
+            File allowedEquipment = new File("equipments.txt"); //file cannot be resolved
+            Scanner fileReader = new Scanner(allowedEquipment); //Reads allowable equipment from equipment file
+            while (fileReader.hasNextLine()){ //Adds new equipments to the arraylist "instruments"
+                this.allowedEquipment.add(fileReader.nextLine());
+            } 
+            fileReader.close();
+        }
+        catch (FileNotFoundException e) { // Sometimes things go wrong; we'll handle that here
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     //Methods
@@ -76,45 +94,49 @@ public class SurgicalRobot implements Contract{
      * @param equipment
      */
     public void grab(String equipment){ //Says function of object in canneddList
-        if (this.inventory.containsKey(equipment)){
-            Implement function =  this.inventory.get(equipment);
+        if (this.inventory.contains(equipment)){
+            String function =  this.inventory.get(equipment.toLowerCase()).getDescription(); //gets the description of the equipement from its Implement class
             System.out.println(function);
             System.out.println("I just grabbed " + equipment + "./n" + function);
             performAction("grab");
         }
-        //Need an inventory to have a static list of equipments to pick from
-        //else()
-        System.out.println("I just grabbed the " + equipment);
-        rest(1000);
-        performAction("Grab");
-        //Checks if equipment is in list of functions and shows function if available.
-        //Can make surgeon say its function if not there
-        if (this.inventory.containsKey(equipment)){
-            System.out.println(this.inventory.get(equipment));
-        }
+        
+        //Not in inventory?
         else{
-            System.out.println("Do you want to add the function of " + equipment + " to the library?\nEnter Yes or No");
-            String operator = userInput.nextLine();
-            rest(1000); //Delays the program for 1s
-            if (operator.toLowerCase().equals("yes")){
-                //Ask doctor for function using scanner
-                System.out.println("What's the function of " + equipment + "? Start with they are or it is");
-                operator = userInput.nextLine();
-                //Adds function to hashtable of functions
-                this.inventory.put(equipment, operator);
+            //Check bigger allowedEquipment store
+            if (allowedEquipment.contains(equipment.toLowerCase())){
+                System.out.println("Do you want to add the function of " + equipment + " to the library?\nEnter Yes or No");
+
+            //Interaction with user
+                //yes or no
+                String operator = userInput.nextLine().toLowerCase();
+                while (!operator.equals("yes") && !operator.equals("no")){ //Prevents user from entering anything that's not yes or no
+                    System.out.println("I didn't quite get that.\nEnter yes or no to continue.");
+                    operator = userInput.nextLine().toLowerCase();
+                }
+                    //yes? Adds to inventory
+                if (operator.toLowerCase().equals("yes")){
+                System.out.println("What's the function of " + equipment + "? Start with they are or it is"); //Ask doctor for function using scanner
+                this.inventory.put(equipment.toLowerCase(), new Implement(true, userInput.nextLine().toLowerCase())); //Adds description to inventory 
                 rest(1000);
-                System.out.println("Added!");
+                System.out.println("Added!");}
+                    //No? Okay! Assume user is just borrowing
+                else if(operator.toLowerCase().equals("no")){
+                    rest(1000);
+                    System.out.println("Okay. Call .addFunction() whenever you want to add the function of " + equipment + " to the library.");
+                }
+                performAction("grab");
             }
-            else if(operator.toLowerCase().equals("no")){
-                rest(1000);
-                System.out.println("Okay. Call .addFunction() whenever you want to add the function of " + equipment + " to the library.");
-            }
-            else{
-                rest(1000);
-                System.out.println("I didn't quite get that.");
-        }
+            else if (!allowedEquipment.contains(equipment.toLowerCase())){
+                System.out.println("Sorry, you can't use " + equipment + " in surgery. You must receive approval from Emily, Olohi, or Tanya to do that.");
+                System.out.println(".....We doubt you're qualified to serve as a surgeon....Who brings " + equipment + " to a surgical room?");
+                System.out.println("Error: Quitting Surgery"); //Add person's name
+                userInput.close();
+                System.exit(1);
+
+            }}
     }
-}
+
   /**
      * Drops an equipment
      * @param tool
@@ -282,13 +304,15 @@ public class SurgicalRobot implements Contract{
     }
 
     public static void main(String[] args) {
+     //
+        int counter = 1;
         SurgicalRobot OlohIntel = new SurgicalRobot("OlohIntel", 0, 0, 50);
         System.out.println(OlohIntel); //Prints out robot's description
         System.out.println(); //Prints an empty line
         System.out.println("Do you want to invoke the showOptions?: Enter Yes or No");
         while (OlohIntel.userInput.nextLine().toLowerCase().equals("no")){ //Doesn't allow program to proceed if user doesn't agree to see options
             System.out.println("Enter YES to proceed. You can't use me without seeing my options");// Question: I would love to allow the user quit using quit(). How do I implement that?
-        }    
+        }
         OlohIntel.showOptions();
         OlohIntel.rest(1000); //Pauses program for 1s ot make it more real
         System.out.println("I'mma grab an equipment to start work. What equipment do you want to use?");
@@ -332,7 +356,7 @@ public class SurgicalRobot implements Contract{
                     System.out.println("Enter y coordinate");
                     double y = OlohIntel.userInput.nextInt();
                     OlohIntel.rest(1000);
-                    OlohIntel.walk(x, y); }}
+                    OlohIntel.walk(x, y); }}}
         //Will invoke these in my game
         
         // OlohIntel.fly(5, 5); //Will invoke these in my game
@@ -349,5 +373,5 @@ public class SurgicalRobot implements Contract{
         }
 
 
-}
+
 

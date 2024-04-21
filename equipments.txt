@@ -1,4 +1,3 @@
-//Put in alternatives to naming
 forceps
 syringes
 scissors
@@ -7,4 +6,6 @@ wool
 x-ray scan
 advil
 sewing thread
-disinfectant wool
+//How do i find my file
+//Put in alternatives to naming
+//How can I do EOFError?
