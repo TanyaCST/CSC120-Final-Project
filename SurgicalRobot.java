@@ -56,6 +56,7 @@ public class SurgicalRobot implements Contract{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
     }
 
     // Do it again because of merge issue
@@ -107,6 +108,7 @@ public class SurgicalRobot implements Contract{
      */
     public Stack<String> getActions(){
         return actions;
+
     }
 
     /**
@@ -163,6 +165,16 @@ public class SurgicalRobot implements Contract{
         this.inventory.put(equipment, surgicalItem);
         //this.functions.put(equipment, disinfect);
     }
+
+
+    /**
+     * Sterilizes the infected/used equipment
+     * @param equipment
+     */
+    public void disinfect(String equipment){
+        inventory.get(equipment).setisClean(true);
+    }
+    
 
   /**
      * Grabs equipment
@@ -415,7 +427,10 @@ public class SurgicalRobot implements Contract{
             String walkType = OlohIntel.userInput.nextLine().toLowerCase(); //Unique variable to store user's response in prep for invoking the walk() method
             OlohIntel.rest(1000);
             while (!(walkType.equals("cardinal") | walkType.equals("coordinate"))){
-                System.out.println("Cardinal or Coordinate? Reenter!");} //Allows user to select which of the overloaded methods to use
+                System.out.println("Cardinal or Coordinate? Reenter!");//Allows user to select which of the overloaded methods to use
+                walkType = OlohIntel.userInput.nextLine().toLowerCase();
+
+            } 
                 if (walkType.equals("cardinal")){  
                     //Runs if user prefers cardinal directions
                     System.out.println("Enter direction: right/left/forward/backward");
@@ -446,6 +461,7 @@ public class SurgicalRobot implements Contract{
 //         OlohIntel.rest();
 //         OlohIntel.fly(2,3);
         }
+
 
 
 
