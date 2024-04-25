@@ -56,8 +56,86 @@ public class SurgicalRobot implements Contract{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
     }
 
+    // Do it again because of merge issue
+    //Getters and Setters
+    /**
+     * get name of robot
+     * @return
+     */
+    public String getName(){
+        return name;
+    }
+
+    /**
+     * get x coordinate of robot
+     * @return
+     */
+    public double getXCoordinate(){
+        return xCoordinate;
+    }
+
+    /**
+     * get y coordinate of robot
+     * @return
+     */
+    public double getYCoordinate(){
+        return yCoordinate;
+    }
+
+
+    /**
+     * get robot's size
+     * @return
+     */
+    public double getSize(){
+        return size;
+    }
+
+    /**
+     * get robot's original size
+     * @return
+     */
+    public double getOriginalSize(){
+        return originalSize;
+    }
+
+    /**
+     * get
+     * @return
+     */
+    public Stack<String> getActions(){
+        return actions;
+
+    }
+
+    /**
+     * get current state of robot
+     * @return
+     */
+    public String getCurrentState(){
+        return currentState;
+    }
+
+    /**
+     * get inventory
+     * @return
+     */
+    public Hashtable<String,Implement> getInventory(){
+        return inventory;
+    }
+
+    /**
+     * get active (a number that tells you is the robot active or not)
+     * @return
+     */
+    public int active(){
+        return active;
+    }
+
+    //methods
     /**
      * Writes the action performed to "memory"
      * @param item
@@ -88,6 +166,7 @@ public class SurgicalRobot implements Contract{
         //this.functions.put(equipment, disinfect);
     }
 
+
     /**
      * Sterilizes the infected/used equipment
      * @param equipment
@@ -96,6 +175,7 @@ public class SurgicalRobot implements Contract{
         inventory.get(equipment).setisClean(true);
     }
     
+
   /**
      * Grabs equipment
      * @param equipment
@@ -311,6 +391,8 @@ public class SurgicalRobot implements Contract{
     }
 
     public static void main(String[] args) {
+     //
+        int counter = 1;
         SurgicalRobot OlohIntel = new SurgicalRobot("OlohIntel", 0, 0, 50);
         System.out.println(OlohIntel); //Prints out robot's description
         System.out.println(); //Prints an empty line
@@ -379,7 +461,6 @@ public class SurgicalRobot implements Contract{
 //         OlohIntel.rest();
 //         OlohIntel.fly(2,3);
         }
-
 
 
 
