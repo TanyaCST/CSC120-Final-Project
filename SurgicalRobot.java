@@ -58,6 +58,7 @@ public class SurgicalRobot implements Contract{
         }
     }
 
+    // Do it again because of merge issue
     //Getters and Setters
     /**
      * get name of robot
@@ -71,16 +72,16 @@ public class SurgicalRobot implements Contract{
      * get x coordinate of robot
      * @return
      */
-    public double getX(){
-        return x;
+    public double getXCoordinate(){
+        return xCoordinate;
     }
 
     /**
      * get y coordinate of robot
      * @return
      */
-    public double getY(){
-        return y;
+    public double getYCoordinate(){
+        return yCoordinate;
     }
 
 
@@ -120,8 +121,8 @@ public class SurgicalRobot implements Contract{
      * get inventory
      * @return
      */
-    public Hashtable<String,String> getFunctions(){
-        return functions;
+    public Hashtable<String,Implement> getInventory(){
+        return inventory;
     }
 
     /**
