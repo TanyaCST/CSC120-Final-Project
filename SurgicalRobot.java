@@ -386,6 +386,12 @@ public class SurgicalRobot implements Contract{
         System.out.println("\ngrab()\ndrop()\nexamine()\nuse()\nwalk()\nfly()\nshrink()\ngrow()\nresetSize()\nrest()\nwake()\nshowOptions()\n");
     }
 
+    public void showEquipment(){
+        for (String equipment: allowedEquipment){
+            rest(500);
+            System.out.println(equipment);
+        }
+    }
     public String toString(){
        return("I am " + this.name + ", a surgical assistant " + this.size + " fts tall.\nHow can I help you? Use the showOptions method to see what I can assist with." );
     }
