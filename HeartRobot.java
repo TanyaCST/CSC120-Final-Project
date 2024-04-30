@@ -6,11 +6,6 @@ import java.util.Hashtable;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.sound.midi.Soundbank;
-import javax.sound.sampled.SourceDataLine;
-
-import org.w3c.dom.UserDataHandler;
-
 public class HeartRobot extends SurgicalRobot {
     //Should be able to do:
     //Heart transplant, Heart valve repair or replacement, Coronary artery grafting
