@@ -6,11 +6,6 @@ import java.util.Hashtable;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.sound.midi.Soundbank;
-import javax.sound.sampled.SourceDataLine;
-
-import org.w3c.dom.UserDataHandler;
-
 public class HeartRobot extends SurgicalRobot {
     //Should be able to do:
     //Heart transplant, Heart valve repair or replacement, Coronary artery grafting
@@ -71,10 +66,10 @@ public class HeartRobot extends SurgicalRobot {
         grab("Heart-Lung Machine");
         this.heartParts.add(newHeart); //Adds newHeart to the inventory
         this.trashNurse.put(oldHeart, " Dispose in waste facility");
-        int replacementSucess = rand.nextInt(1,5);
-        if (replacementSucess > 3){
+        int replacementSucess = rand.nextInt(0,6);
+        if (replacementSucess > 2){
         System.out.println(oldHeart + " replaced! Congratulations, " + this.patient + " survived..");}
-        if (replacementSucess <= 3){
+        if (replacementSucess < 3){
             System.out.println(oldHeart + " was replaced but unfortunately, " + this.patient + " couldn't make it. Improve techniques next time");
         }
         return replacementSucess;
