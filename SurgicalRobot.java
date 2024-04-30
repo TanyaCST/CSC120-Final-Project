@@ -56,8 +56,10 @@ public class SurgicalRobot implements Contract{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
     }
 
+    // Do it again because of merge issue
     //Getters and Setters
     /**
      * get name of robot
@@ -71,16 +73,16 @@ public class SurgicalRobot implements Contract{
      * get x coordinate of robot
      * @return
      */
-    public double getX(){
-        return x;
+    public double getXCoordinate(){
+        return xCoordinate;
     }
 
     /**
      * get y coordinate of robot
      * @return
      */
-    public double getY(){
-        return y;
+    public double getYCoordinate(){
+        return yCoordinate;
     }
 
 
@@ -106,6 +108,7 @@ public class SurgicalRobot implements Contract{
      */
     public Stack<String> getActions(){
         return actions;
+
     }
 
     /**
@@ -120,8 +123,8 @@ public class SurgicalRobot implements Contract{
      * get inventory
      * @return
      */
-    public Hashtable<String,String> getFunctions(){
-        return functions;
+    public Hashtable<String,Implement> getInventory(){
+        return inventory;
     }
 
     /**
@@ -162,6 +165,16 @@ public class SurgicalRobot implements Contract{
         this.inventory.put(equipment, surgicalItem);
         //this.functions.put(equipment, disinfect);
     }
+
+
+    /**
+     * Sterilizes the infected/used equipment
+     * @param equipment
+     */
+    public void disinfect(String equipment){
+        inventory.get(equipment).setisClean(true);
+    }
+    
 
   /**
      * Grabs equipment
@@ -373,6 +386,12 @@ public class SurgicalRobot implements Contract{
         System.out.println("\ngrab()\ndrop()\nexamine()\nuse()\nwalk()\nfly()\nshrink()\ngrow()\nresetSize()\nrest()\nwake()\nshowOptions()\n");
     }
 
+    public void showEquipment(){
+        for (String equipment: allowedEquipment){
+            rest(500);
+            System.out.println(equipment);
+        }
+    }
     public String toString(){
        return("I am " + this.name + ", a surgical assistant " + this.size + " fts tall.\nHow can I help you? Use the showOptions method to see what I can assist with." );
     }
@@ -414,7 +433,10 @@ public class SurgicalRobot implements Contract{
             String walkType = OlohIntel.userInput.nextLine().toLowerCase(); //Unique variable to store user's response in prep for invoking the walk() method
             OlohIntel.rest(1000);
             while (!(walkType.equals("cardinal") | walkType.equals("coordinate"))){
-                System.out.println("Cardinal or Coordinate? Reenter!");} //Allows user to select which of the overloaded methods to use
+                System.out.println("Cardinal or Coordinate? Reenter!");//Allows user to select which of the overloaded methods to use
+                walkType = OlohIntel.userInput.nextLine().toLowerCase();
+
+            } 
                 if (walkType.equals("cardinal")){  
                     //Runs if user prefers cardinal directions
                     System.out.println("Enter direction: right/left/forward/backward");
@@ -445,6 +467,7 @@ public class SurgicalRobot implements Contract{
 //         OlohIntel.rest();
 //         OlohIntel.fly(2,3);
         }
+
 
 
 

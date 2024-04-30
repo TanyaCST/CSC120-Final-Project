@@ -6,6 +6,7 @@ wool
 x-ray scan
 advil
 sewing thread
+
 //How do i find my file
 //Put in alternatives to naming
 //How can I do EOFError?
