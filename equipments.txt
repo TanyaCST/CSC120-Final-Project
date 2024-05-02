@@ -6,6 +6,11 @@ wool
 x-ray scan
 advil
 sewing thread
+suction tubes
+surgical knives
+blue fluorescent light
+ultrasound
+microscope
 //How do i find my file
 //Put in alternatives to naming
 //How can I do EOFError?

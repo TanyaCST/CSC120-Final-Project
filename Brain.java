@@ -1,11 +1,12 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Brain extends SurgicalRobot{
     // attributes
     private String name;
     private String patientName;
-    int round = 0; // round should be 0 when the game startes
+    ArrayList <Integer> round; // round should be 0 when the game startes
     int restTime = 500;
     Scanner userInput = new Scanner(System.in);
     Scanner userChoice = new Scanner(System.in);
@@ -18,6 +19,7 @@ public class Brain extends SurgicalRobot{
         super(name, xCoordinate, yCoordinate, size);
         this.name = getName();
         this.patientName = patientName;
+        this.round = new ArrayList<Integer>();
         //this.brainParts = brainParts;
     }
 
@@ -29,7 +31,7 @@ public class Brain extends SurgicalRobot{
         return this.patientName;
     }
 
-    public int getRound(){
+    public ArrayList <Integer> getRound(){
         return round;
     }
 
@@ -93,12 +95,28 @@ public class Brain extends SurgicalRobot{
      * @return
      */
     public boolean checkRound(){
-        if (round == 3){
+        if(round.size() == 3){
             return true;
         }
         else{
             return false;
         }
+    }
+
+    public void checkEquipment(){
+        System.out.println("forceps\n" + //
+                           "syringes\n" + //
+                           "scissors\n" + //
+                           "lint\n" + //
+                           "wool\n" + //
+                           "x-ray scan\n" + //
+                           "advil\n" + //
+                           "sewing thread\n" + //
+                           "suction tubes\n" + //
+                           "surgical knives\n" + //
+                           "blue fluorescent light\n" + //
+                           "ultrasound\n" + //
+                           "microscope");
     }
 
     /** 
@@ -115,38 +133,41 @@ public class Brain extends SurgicalRobot{
                 newRobot.guide();
             }
             boolean doingSurgery = true;
-            System.out.println("Surgery starts. Please Grab the equipment you need.");
+            System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
             System.out.println("Here are the equipments you can use.");
+            checkEquipment();
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
 
             while(doingSurgery){
-                System.out.println("Are you done with the surgery? (Yes/No)");
+                System.out.println("-------Are you done with the surgery? (Yes/No)-------");
                 String newChoice = userChoice.nextLine();
                 newChoice = newChoice.toLowerCase();
                 if(newChoice.equals("yes")){
                     System.out.println("You've completed the surgery");
                     if(survival() == false){
-                        System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died.");
+                        System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died. 😢");
                     }
                     else{
-                        System.out.println("The surgery is successful! Congradulations!");
+                        System.out.println("The surgery is successful! Congradulations!🥳");
                     }
                     doingSurgery = false; 
                 }
                 else if(newChoice.equals("no")){
-                    System.out.println("Please grab another equipment.");
+                    System.out.println("-------Please grab another equipment.-------");
+                    System.out.println("Here are the equipments you can use.");
+                    checkEquipment();
                     grabEquip = userChoice.nextLine();
                     newRobot.grab(grabEquip);
                     newRobot.use(grabEquip);
                 }
                 else{
-                    System.out.println("I can't believe you typed yes/no wrong.");
+                    System.out.println("?_? I can't believe you typed yes/no wrong.");
                     doingSurgery = false; 
                 }
             }
-            round += 1;
+            round.add(1);
             
         }
         else{
@@ -169,38 +190,42 @@ public class Brain extends SurgicalRobot{
                 newRobot.guide();
             }
             boolean doingSurgery = true;
-            System.out.println("Surgery starts. Please Grab the equipment you need.");
+            System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
+            System.out.println("Here are the equipments you can use.");
+            checkEquipment();
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
 
             while(doingSurgery){
-                System.out.println("Are you done with the surgery? (Yes/No)");
+                System.out.println("-------Are you done with the surgery? (Yes/No)-------");
                 String newChoice = userChoice.nextLine();
                 newChoice = newChoice.toLowerCase();
                 if(newChoice.equals("yes")){
                     System.out.println("You've completed the surgery");
                     if(survival() == false){
-                        System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died.");
+                        System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died. 😢");
                     }
                     else{
-                        System.out.println("The surgery is successful! Congradulations!");
+                        System.out.println("The surgery is successful! Congradulations!🥳");
                     }
                     doingSurgery = false; 
                 }
                 else if(newChoice.equals("no")){
-                    System.out.println("Please grab another equipment.");
+                    System.out.println("-------Please grab another equipment.-------");
+                    System.out.println("Here are the equipments you can use.");
+                    checkEquipment();
                     grabEquip = userChoice.nextLine();
                     newRobot.grab(grabEquip);
                     newRobot.use(grabEquip);
                 }
                 else{
-                    System.out.println("I can't believe you typed yes/no wrong.");
+                    System.out.println("?_? I can't believe you typed yes/no wrong.");
                     doingSurgery = false; 
                 }
             }
+            round.add(2);
             
-            round += 1;
         }
         else{
             System.out.println("Fortunately, this patient doesn't have hemorrage.");
@@ -221,37 +246,41 @@ public class Brain extends SurgicalRobot{
                 newRobot.guide();
             }
             boolean doingSurgery = true;
-            System.out.println("Surgery starts. Please Grab the equipment you need.");
+            System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
+            System.out.println("Here are the equipments you can use.");
+            checkEquipment();
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
 
             while(doingSurgery){
-                System.out.println("Are you done with the surgery? (Yes/No)");
+                System.out.println("-------Are you done with the surgery? (Yes/No)-------");
                 String newChoice = userChoice.nextLine();
                 newChoice = newChoice.toLowerCase();
                 if(newChoice.equals("yes")){
                     System.out.println("You've completed the surgery");
                     if(survival() == false){
-                        System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died.");
+                        System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died. 😢");
                     }
                     else{
-                        System.out.println("The surgery is successful! Congradulations!");
+                        System.out.println("The surgery is successful! Congradulations!🥳");
                     }
                     doingSurgery = false; 
                 }
                 else if(newChoice.equals("no")){
-                    System.out.println("Please grab another equipment.");
+                    System.out.println("-------Please grab another equipment.-------");
+                    System.out.println("Here are the equipments you can use.");
+                    checkEquipment();
                     grabEquip = userChoice.nextLine();
                     newRobot.grab(grabEquip);
                     newRobot.use(grabEquip);
                 }
                 else{
-                    System.out.println("I can't believe you typed yes/no wrong.");
+                    System.out.println("?_? I can't believe you typed yes/no wrong.");
                     doingSurgery = false; 
                 }
             }
-            round += 1;
+            round.add(3);
             
         }
         else{
@@ -283,23 +312,56 @@ public class Brain extends SurgicalRobot{
         while(surgeryStatus){
             if(surgeryChoice == 1){
                 newRobot.hemorrage(newRobot);
-                surgeryChoice = r.nextBoolean() ? 2 : 3;
+                if(newRobot.getRound().contains(2) && newRobot.getRound().contains(3)){
+                    System.out.println("You have finished all the surgeries :))))))");
+                    surgeryChoice = 4;
+                }
+                else if(newRobot.getRound().contains(2)){
+                    surgeryChoice = 3;
+                }
+                else if(newRobot.getRound().contains(3)){
+                    surgeryChoice = 2;
+                }
+                else{
+                    surgeryChoice = r.nextBoolean() ? 2 : 3;
+                }
                 
             }
             else if(surgeryChoice == 2){
                 newRobot.hematoma(newRobot);
-                surgeryChoice = r.nextBoolean() ? 1 : 3;
+                if(newRobot.getRound().contains(1) && newRobot.getRound().contains(3)){
+                    System.out.println("You have finished all the surgeries :))))))");
+                    surgeryChoice = 4;
+                }
+                else if(newRobot.getRound().contains(1)){
+                    surgeryChoice = 3;
+                }
+                else if(newRobot.getRound().contains(3)){
+                    surgeryChoice = 1;
+                }
+                else{
+                    surgeryChoice = r.nextBoolean() ? 1 : 3;
+                }
                 
             }
             else if(surgeryChoice == 3){
                 newRobot.brainTumor(newRobot);
-                surgeryChoice = r.nextBoolean() ? 1 : 2;
+                if(newRobot.getRound().contains(1) && newRobot.getRound().contains(2)){
+                    System.out.println("You have finished all the surgeries :))))))");
+                    surgeryChoice = 4;
+                }
+                else if(newRobot.getRound().contains(2)){
+                    surgeryChoice = 1;
+                }
+                else if(newRobot.getRound().contains(1)){
+                    surgeryChoice = 2;
+                }
+                else{
+                    surgeryChoice = r.nextBoolean() ? 1 : 2;
+                }
                 
             }
             else if(surgeryChoice == 4){
-                surgeryChoice = newRobot.chooseSurgery();
-            }
-            else if(surgeryChoice == 5){
                 System.out.println("You are leaving Neuro-Surgical Robots simulator........ Bye:))))))");
                 surgeryStatus = false;
                 
