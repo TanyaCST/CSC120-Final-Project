@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Liver extends SurgicalRobot {
@@ -12,6 +11,7 @@ public class Liver extends SurgicalRobot {
     private boolean oldLiver;
     private boolean newLiver;
     private boolean probeInserted;
+    private boolean tubeInserted;
 
     public Liver(String name, double xCoordinate, double yCoordinate, double size, String patient){
         super(name, xCoordinate, yCoordinate, size);
@@ -19,8 +19,7 @@ public class Liver extends SurgicalRobot {
         this.patient = patient;
     }
 
-    public void liverTransplant(Liver liverRobot){
-        Scanner surgicalStepScanner = new Scanner(System.in);
+    public void liverTransplant(){
         anesthesiaAdministered = false;
         cutOpen = false;
         oldLiver = true;
@@ -28,7 +27,9 @@ public class Liver extends SurgicalRobot {
 
         System.out.println("To perform a liver transplant, administer anesthesia, cut the patient open, remove the liver, replace it, and stitch the patient closed.");
         System.out.println("First, we need to administer anesthesia. Please enter \"a\" to administer anesthesia");
+        Scanner surgicalStepScanner = new Scanner(System.in);
         String surgicalAnesthesiaInput = surgicalStepScanner.nextLine();
+        surgicalAnesthesiaInput = surgicalStepScanner.nextLine();
 
         if (surgicalAnesthesiaInput.toLowerCase().equals("a")){
             anesthesiaAdministered = true;
@@ -36,6 +37,7 @@ public class Liver extends SurgicalRobot {
         while (anesthesiaAdministered == false){
             System.out.println("Please enter \"a\" to administer anesthesia. You cannot operate on a patient that hasn't been anesthetized.");
             String surgicalAnesthesiaInput2 = surgicalStepScanner.nextLine();
+            surgicalAnesthesiaInput2 = surgicalStepScanner.nextLine();
             if (surgicalAnesthesiaInput2.toLowerCase().equals("a")){
                 anesthesiaAdministered = true;
             }
@@ -90,7 +92,7 @@ public class Liver extends SurgicalRobot {
 
     }
 
-    public void liverAblation(Liver liverRobot){
+    public void liverAblation(){
         Scanner surgicalStepScanner = new Scanner(System.in);
 
         anesthesiaAdministered = false;
@@ -147,7 +149,7 @@ public class Liver extends SurgicalRobot {
         surgicalStepScanner.close();
     }
 
-    public void liverResection(Liver liverRobot){
+    public void liverResection(){
         Scanner surgicalStepScanner = new Scanner(System.in);
         anesthesiaAdministered = false;
         cutOpen = false;
@@ -222,37 +224,66 @@ public class Liver extends SurgicalRobot {
         surgicalStepScanner.close();
     }
 
-    public void diagnosticLaparoscopy(Liver liverRobot){
+    public void diagnosticLaparoscopy(){
         Scanner surgicalStepScanner = new Scanner(System.in);
-        String surgicalStepInput = surgicalStepScanner.nextLine();
         anesthesiaAdministered = false;
         cutOpen = false;
 
         System.out.println("To perform a diagnostic laparoscopy, please make a small incision, then insert a tube with a camera to see. Administer anesthesia, make a cut, insert the tube, then stitch the incision closed.");
-        if (anesthesiaAdministered == false){
+        System.out.println("First, we need to administer anesthesia.");
+        String surgicalAnesthesiaInput = surgicalStepScanner.nextLine();
+
+        if (surgicalAnesthesiaInput.toLowerCase().equals("a")){
+            anesthesiaAdministered = true;
+        }
+        while (anesthesiaAdministered == false){
             System.out.println("Please enter \"a\" to administer anesthesia. You cannot operate on a patient that hasn't been anesthetized.");
-            if (surgicalStepInput.toLowerCase().equals("a")){
+            String surgicalAnesthesiaInput2 = surgicalStepScanner.nextLine();
+            if (surgicalAnesthesiaInput2.toLowerCase().equals("a")){
                 anesthesiaAdministered = true;
             }
         }
         
-        
-        if (cutOpen == false){
+        System.out.println("Now, please make an incision to insert the tube with a camera. Please enter \"cut\" to make the incision");
+        String surgicalIncisionInput = surgicalStepScanner.nextLine();
+
+        if (surgicalIncisionInput.toLowerCase().equals("cut")){
+            cutOpen = true;
+        }
+
+        while (cutOpen == false){
             System.out.println("Please enter \"cut\" to make an incision. You cannot insert a tube if there is no incision to put it into.");
-            if (surgicalStepInput.toLowerCase().equals("cut")){
+            String surgicalIncisionInput2 = surgicalStepScanner.nextLine();
+            if (surgicalIncisionInput2.toLowerCase().equals("cut")){
                 cutOpen = true;
             }
         }
-        
+
+        tubeInserted = false;
         System.out.println("Now, insert the tube with the camera. Enter \"insert\" to put in the tube.");
-        if (!surgicalStepInput.toLowerCase().equals("insert")){
-            System.out.println("Please enter \"insert\" to put in the tube.");
+        String surgicalInsertionInput = surgicalStepScanner.nextLine();
+        if (surgicalInsertionInput.toLowerCase().equals("insert")){
+            tubeInserted = true;
+        }
+        while (tubeInserted == false){
+            System.out.println("Please type \"insert\" to insert the tube. If you don't insert the tube, the examination cannot be completed.");
+            String surgicalInsertionInput2 = surgicalStepScanner.nextLine();
+            if (surgicalInsertionInput2.toLowerCase().equals("insert")){
+                tubeInserted = true;
+            }
         }
         
         System.out.println("Examination done! No conditions detected! Please close the incision by typing \"close\".");
-        if (cutOpen == true){
-            System.out.println("Please enter \"close\" to close the incision. You cannot leave an incision open!");
-            if (surgicalStepInput.toLowerCase().equals("close")){
+        String surgicalClosureInput = surgicalStepScanner.nextLine();
+
+        if (surgicalClosureInput.toLowerCase().equals("close")){
+            cutOpen = false;
+        }
+
+        while (cutOpen == true){
+            System.out.println("Please enter \"close\" to close the cut. You cannot leave an incision open!");
+            String surgicalClosureInput2 = surgicalStepScanner.nextLine();
+            if (surgicalClosureInput2.toLowerCase().equals("close")){
                 cutOpen = false;
             }
         }
@@ -268,8 +299,6 @@ public class Liver extends SurgicalRobot {
         Liver liverRobot = new Liver("Liver Robot", 0, 0, 50, "Patient 1");
         Scanner userScanner = new Scanner(System.in);
         String userInput = userScanner.nextLine();
-        boolean cutOpen = false;
-        boolean anesthesiaAdministered = false;
         
         if (userInput.contains("1")){
             boolean choiceMade = true;
@@ -279,60 +308,52 @@ public class Liver extends SurgicalRobot {
                 Random rand = new Random();
                 int liverCondition = rand.nextInt(0, 6);
                 System.out.println(".....................................................");
-                if (liverCondition > 3){
+                
+                if (liverCondition >= 3){
                     System.out.println("The severity of the patient's condition is " + liverCondition + ". Please perform a liver transplant.\nLiver Transplant: Surgery to replace a diseased liver with a healthy liver from another person. It is usually reserved as a treatment option for people who have significant complications.");
-                    liverRobot.liverTransplant(liverRobot);
+                    liverRobot.liverTransplant();
                     System.out.println("Would you like to perform another surgery? Please press \"e\" to exit, press anything else to continue.");
                     String userChoice = userScanner.nextLine();
                     if (userChoice.toLowerCase().contains("e")){
                         choiceMade = false;
-                    }
-                    else{
-                        continue;
                     }
                 }
                 
                 else if (liverCondition == 2){
                     System.out.println("The severity of the patient's condition is " + liverCondition + ". Please perform a liver ablation.\nLiver Ablation: Using heat to destroy liver tumors. This is best used when tumors are no larger than a little over an inch across.");
-                    liverRobot.liverAblation(liverRobot);
+                    liverRobot.liverAblation();
                     System.out.println("Would you like to perform another surgery? Please press \"e\" to exit, press anything else to continue.");
                     String userChoice = userScanner.nextLine();
                     if (userChoice.toLowerCase().contains("e")){
                         choiceMade = false;
-                    }
-                    else{
-                        continue;
                     }
                 }
                 
                 else if (liverCondition == 1){
                     System.out.println("The severity of the patient's condition is " + liverCondition + ". Please perform a liver resection.\nLiver Resection: The removal of part of the liver during an operation.");
-                    liverRobot.liverResection(liverRobot);
+                    liverRobot.liverResection();
+                    
                     System.out.println("Would you like to perform another surgery? Please press \"e\" to exit, press anything else to continue.");
                     String userChoice = userScanner.nextLine();
                     if (userChoice.toLowerCase().contains("e")){
                         choiceMade = false;
-                    }
-                    else{
-                        continue;
                     }
                 }
                 
                 else if (liverCondition == 0){
-                    System.out.println("The severity of the patient's condition is " + liverCondition + ". Do you want to perform a diagnostic laproscopy?");
-                    liverRobot.diagnosticLaparoscopy(liverRobot);
+                    System.out.println("The severity of the patient's condition is " + liverCondition + ". Please perform a diagnostic laproscopy.");
+                    liverRobot.diagnosticLaparoscopy();
+                    
                     System.out.println("Would you like to perform another surgery? Please press \"e\" to exit, press anything else to continue.");
                     String userChoice = userScanner.nextLine();
                     if (userChoice.toLowerCase().contains("e")){
                         choiceMade = false;
-                    }
-                    else{
-                        continue;
                     }
                 }             
             }
         }
         else{
+            System.out.println("T");
             System.exit(0);
         }
         userScanner.close();   
