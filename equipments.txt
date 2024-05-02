@@ -14,3 +14,13 @@ microscope
 //How do i find my file
 //Put in alternatives to naming
 //How can I do EOFError?
+surgical needle and suture
+bandages
+blood sugar meters
+scalpel
+retractor
+surgical knives
+rongeurs
+elctrocautery device
+surgical suction device
+

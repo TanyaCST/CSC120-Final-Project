@@ -1,0 +1,67 @@
+boolean exitGame
+
+public static void main(String[] args) {
+    exitGame == false;
+    SurgicalRobot OlohIntel = new SurgicalRobot("OlohIntel, 0, 0, 50")
+    while (exitGame == false) {
+        System.out.println(OlohIntel);
+        System.out.println();
+        System.out.println("Do you want to invoke the showOptions?: Enter Yes or No");
+        while (OlohIntel.userInput.nextLine().toLowerCase().equals("no")){ //Doesn't allow program to proceed if user doesn't agree to see options
+           System.out.println("Enter YES to proceed. You can't use me without seeing my options. If you'd like to quit, please type \"quit\".");
+           if (OlohIntel.userInput.nextLine().toLowerCase().equals("quit")){
+            quit();
+           }
+        OlohIntel.showOptions();
+        OlohIntel.rest(1000); //Pauses program for 1s ot make it more real
+        System.out.println("I'mma grab an equipment to start work. What equipment do you want to use?");
+        String equipment = OlohIntel.userInput.nextLine(); //Passes equipment to be used to the variable equipment
+        OlohIntel.rest(1000);
+        OlohIntel.grab(equipment); //Implements grab method
+        OlohIntel.rest(1000);
+        System.out.println("--------Let's start by examining " + equipment + "---------");
+        OlohIntel.rest(1000);
+        OlohIntel.examine(equipment); //Implements examine method
+        //OlohIntel.drop("forceps"); Add to the end of the code
+        OlohIntel.rest(1000);
+        System.out.println("Confirm you want to use OlohIntel in the surgery.....\nYES OR NO");
+        String use = OlohIntel.userInput.nextLine().toLowerCase(); //use as a unique varaible to store user's response in preparation for invoking the use() method
+        if (use.equals("no")){
+            OlohIntel.rest(1000);
+            System.out.println("Okay, bye!");}
+            quit();
+ 
+        else{
+            System.out.println("Please select the type of surgery you'd like to perform:\n1. Heart\n2. Brain\n3. Abdominal\nEnter a number 1-3.")
+            while (!OlohIntel.userInput.nextLine()== int){
+                
+            }
+            OlohIntel.rest(1000);
+            OlohIntel.use(equipment); //Implements the use() method
+            System.out.println("--------------------------");
+            OlohIntel.rest(1000);
+            System.out.println("OlohIntel needs to walk to perform her function\nShould she walk in a specific cardinal direction or according to a coordinate?\n............Enter Cardinal or Coordinate");
+            String walkType = OlohIntel.userInput.nextLine().toLowerCase(); //Unique variable to store user's response in prep for invoking the walk() method
+            OlohIntel.rest(1000);
+            while (!(walkType.equals("cardinal") | walkType.equals("coordinate"))){
+                System.out.println("Cardinal or Coordinate? Reenter!");} //Allows user to select which of the overloaded methods to use
+                if (walkType.equals("cardinal")){  
+                    //Runs if user prefers cardinal directions
+                    System.out.println("Enter direction: right/left/forward/backward");
+                    String direction = OlohIntel.userInput.nextLine().toLowerCase();
+                    OlohIntel.rest(1000);
+                    OlohIntel.walk(direction);
+                    System.out.println("--------------------------");}
+                else if ((walkType.equals("coordinate"))){ 
+                    //Runs if user prefers coordinate directions
+                    System.out.println("Enter x coordinate"); 
+                    double x = OlohIntel.userInput.nextInt();
+                    OlohIntel.rest(1000);
+                    System.out.println("Enter y coordinate");
+                    double y = OlohIntel.userInput.nextInt();
+                    OlohIntel.rest(1000);
+                    OlohIntel.walk(x, y); }}}
+       }
+    }
+
+}
