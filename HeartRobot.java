@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Scanner;
+// import java.io.*;
 
 
 public class HeartRobot extends SurgicalRobot {
@@ -65,7 +66,8 @@ public class HeartRobot extends SurgicalRobot {
      * Most advanced and final part of the surgical operation
      * @return int replacementSucess, tells whether the heart replacement process was sucessful
      */
-    public int heartReplace(){
+    public int heartReplace(){ //way to check time since execution?
+        long startTime1 = System.currentTimeMillis();
         String oldHeart = this.patient + "'s heart";
         String newHeart = "Donor's heart";
         System.out.println("----------------------------------------------------------------------");
@@ -86,6 +88,8 @@ public class HeartRobot extends SurgicalRobot {
         this.trashNurse.put(oldHeart, " Dispose in waste facility"); //calls trash nurse to dispose oldheart
         rest(restTime);
         System.out.println("Called trashnurse to dispose the removed heart into the waste facility");
+        long startTime2 = System.currentTimeMillis();
+        System.out.println((startTime2 - startTime1)/1000 + "s"); //develop later
         int replacementSucess = rand.nextInt(0,6);
         if (replacementSucess > 2){
         System.out.println(oldHeart + " replaced! Congratulations, " + this.patient + " survived..");}
