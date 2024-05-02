@@ -117,7 +117,7 @@ public class HeartRobot extends SurgicalRobot {
         stichType.add("minor"); stichType.add("major"); stichType.add("medium");
         int lengthStitchType = stichType.size();
         String randomResponse = stichType.get(rand.nextInt(lengthStitchType - 1));
-        System.out.println("----------Going through a " + randomResponse + "stitch-------");
+        System.out.println("----------Going through a " + randomResponse + " stitch-------");
         System.out.println("Using " + stitchEquipment + " carefully.");
         
     }
@@ -143,6 +143,31 @@ public class HeartRobot extends SurgicalRobot {
         rest(restTime);
         System.out.println("heartTransplant(), heartReplace(), valveStitch(), and graftArtery()");
 
+    }
+
+    /**
+     * @param score
+     */
+    public void stitchMain(int score){
+        System.out.println("Below are possible pieces of equipment that can be used");
+        showEquipment();//Shows the equipment that are allowed
+        System.out.println("By choosing from one of the equipments above, enter the excision equipment you'd like to use.");
+        String excisionEquipment = userInput.nextLine().toLowerCase();
+        while (!(allowedEquipment.contains(excisionEquipment))){
+            System.out.println("You must choose from one of the equipments shown");
+            showEquipment();
+            excisionEquipment = userInput.nextLine().toLowerCase();
+        }
+        rest(1000);
+        System.out.println("Enter the stitch equipment.");
+        String stitchEquipment = userInput.nextLine().toLowerCase();
+        while (!(allowedEquipment.contains(stitchEquipment))){
+            System.out.println("You must choose from one of the equipments shown");
+            showEquipment();
+            stitchEquipment = userInput.nextLine().toLowerCase(); 
+        }
+        score += 10;  
+        valveStitch(stitchEquipment);
     }
 
 
@@ -211,9 +236,9 @@ public static void main(String[] args) {
                     System.out.println("You must choose from one of the equipments shown");
                     HAS.showEquipment();
                     stitchEquipment = userInput.nextLine().toLowerCase();
-                    score += 10;
-                    System.out.println("-------------------Just completed level 1✅. Moving you to Level 2: graftArtery()🎊🎊----------------"); //implement quit if you like
                 }
+                score += 10;
+                System.out.println("-------------------Just completed level 1✅. Moving you to Level 2: graftArtery()🎊🎊----------------"); //implement quit if you like
                 HAS.rest(1000);
                 HAS.graftArtery(excisionEquipment, stitchEquipment);
                 System.out.println("Artery's been successfully grafted✅. Congratsss, you won level 1 and 2!!🎉🎉");
@@ -241,7 +266,13 @@ public static void main(String[] args) {
                     System.out.println("You can't proceed if you don't have the new heart. Enter 1 when that becomes available.");
                     newHeart = userInput.nextInt();
                     userInput.nextLine();
-                } 
+                }
+
+                System.out.println("To take out old heart, you need an equipment to remove heart (excision equipment) and to stitch new heart (stitch equipment)");
+                HAS.rest(1000);
+                HAS.stitchMain(score);
+                System.out.println("-------------------Just completed level 1✅. Moving you to Level 3: heartReplace()🎊🎊----------------"); //implement quit if you like
+
                 int sucessReplace = HAS.heartReplace(); // must be 1 to get here
                 if (sucessReplace < 3){
                     score -= 10;
@@ -254,7 +285,7 @@ public static void main(String[] args) {
                     score += 30;
                     System.out.println("You completed the most difficult level! You are officially a surgeon🎉🎊🤣");
                     HAS.rest(1000);
-                    System.out.println("Your final score is pretty high: " + score + "points. You should be proud of yourself.");
+                    System.out.println("Your final score is pretty high: " + score + " points. You should be proud of yourself.");
                     System.exit(1);
                 }    
         }}
