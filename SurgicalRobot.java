@@ -388,7 +388,7 @@ public class SurgicalRobot implements Contract{
 
     public void showEquipment(){
         for (String equipment: allowedEquipment){
-            rest(500);
+            rest(200);
             System.out.println(equipment);
         }
     }

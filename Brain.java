@@ -236,7 +236,7 @@ public class Brain extends SurgicalRobot{
      * 
      */
     public void brainTumor(Brain newRobot){
-        System.out.println("....Examinig patient...");
+        System.out.println("....Examining patient...");
         int grade = grading();
         if(grade >= 5){
             System.out.println("Unfortunately, This patient is tested positive the tumor grading. With a grading " + grade +", Surgery is needed");

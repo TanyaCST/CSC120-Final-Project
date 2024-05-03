@@ -66,7 +66,7 @@ public class HeartRobot extends SurgicalRobot {
      * Most advanced and final part of the surgical operation
      * @return int replacementSucess, tells whether the heart replacement process was sucessful
      */
-    public int heartReplace(){ //way to check time since execution?
+    public long heartReplace(){ //way to check time since execution?
         long startTime1 = System.currentTimeMillis();
         String oldHeart = this.patient + "'s heart";
         String newHeart = "Donor's heart";
@@ -89,14 +89,14 @@ public class HeartRobot extends SurgicalRobot {
         rest(restTime);
         System.out.println("Called trashnurse to dispose the removed heart into the waste facility");
         long startTime2 = System.currentTimeMillis();
-        System.out.println((startTime2 - startTime1)/1000 + "s"); //develop later
-        int replacementSucess = rand.nextInt(0,6);
-        if (replacementSucess > 2){
-        System.out.println(oldHeart + " replaced! Congratulations, " + this.patient + " survived..");}
-        if (replacementSucess < 3){
+        long replacementTime = (startTime2 - startTime1)/1000;
+        System.out.println(replacementTime);
+        if (replacementTime <= 25){
+            System.out.println(oldHeart + " replaced in " + replacementTime + "s! Congratulations, " + this.patient + " survived..");}
+        if (replacementTime > 25){
             System.out.println(oldHeart + " was replaced but unfortunately, " + this.patient + " couldn't make it. Improve techniques next time");
         }
-        return replacementSucess;
+        return replacementTime;
     }
     
     /**
@@ -153,9 +153,7 @@ public class HeartRobot extends SurgicalRobot {
      * @param score
      */
     public void stitchMain(int score){
-        System.out.println("Below are possible pieces of equipment that can be used");
-        showEquipment();//Shows the equipment that are allowed
-        System.out.println("By choosing from one of the equipments above, enter the excision equipment you'd like to use.");
+        System.out.println("By choosing from one of the allowed equipments in level 1, enter the excision equipment you'd like to use.");
         String excisionEquipment = userInput.nextLine().toLowerCase();
         while (!(allowedEquipment.contains(excisionEquipment))){
             System.out.println("You must choose from one of the equipments shown");
@@ -226,7 +224,7 @@ public static void main(String[] args) {
                 HAS.rest(2000);
                 System.out.println("Below are possible pieces of equipment that can be used");
                 HAS.showEquipment();//Shows the equipment that are allowed
-                System.out.println("By choosing from one of the equipments above, enter the excision equipment you'd like to use.");
+                System.out.println("By choosing from one of the equipments in the list, enter the excision equipment you'd like to use.");
                 String excisionEquipment = userInput.nextLine().toLowerCase();
                 while (!(HAS.allowedEquipment.contains(excisionEquipment))){
                     System.out.println("You must choose from one of the equipments shown");
@@ -277,15 +275,15 @@ public static void main(String[] args) {
                 HAS.stitchMain(score);
                 System.out.println("-------------------Just completed level 1✅. Moving you to Level 3: heartReplace()🎊🎊----------------"); //implement quit if you like
 
-                int sucessReplace = HAS.heartReplace(); // must be 1 to get here
-                if (sucessReplace < 3){
+                long replacementSucess = HAS.heartReplace(); // must be 1 to get here
+                if (replacementSucess > 30){
                     score -= 10;
-                    System.out.println("Congrats on completing level 3\nUnfortunately, you lost the game for losing the patient🥶");
+                    System.out.println("Congrats on completing level 3\nUnfortunately, you lost the game for losing the patient🥶🙁😣\n" + "It took you " + replacementSucess + "s to replace the heart. That's too much time to leave a patient without a natural heart.");
                     HAS.rest(HAS.restTime);
                     System.out.println("Your final score is " + score);
                     System.exit(1);
                 }
-                if (sucessReplace > 2){
+                if (replacementSucess < 30){
                     score += 30;
                     System.out.println("You completed the most difficult level! You are officially a surgeon🎉🎊🤣");
                     HAS.rest(1000);
