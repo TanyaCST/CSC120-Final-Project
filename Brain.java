@@ -263,7 +263,7 @@ public class Brain extends SurgicalRobot{
                         System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died. 😢");
                     }
                     else{
-                        System.out.println("The surgery is successful! Congradulations!🥳");
+                        System.out.println("The surgery is successful! Congratulations!🥳");
                     }
                     doingSurgery = false; 
                 }
@@ -306,7 +306,7 @@ public class Brain extends SurgicalRobot{
         Brain newRobot = new Brain("BrainRobot1", 0, 0, 50, "Justin");
         System.out.println("---------Welcome to Surgical Robot Simulator!!!------------");
         System.out.println("In this round, you will use Neurosurgery assistants to perform 3 types of brain surgeries. \n1. Hemorrage \n2. Hematoma \n3. Brain tumor");
-        boolean surgeryStatus = true;
+        boolean surgeryStatus = true; //consider changing to false
         System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to randomly start the game. \nPress 5 to quit the game.");
         int surgeryChoice = input.nextInt();
         while(surgeryStatus){
