@@ -135,7 +135,7 @@ public class Brain extends SurgicalRobot{
             boolean doingSurgery = true;
             System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
             System.out.println("Here are the equipments you can use.");
-            checkEquipment();
+            showEquipment();
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
@@ -192,7 +192,7 @@ public class Brain extends SurgicalRobot{
             boolean doingSurgery = true;
             System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
             System.out.println("Here are the equipments you can use.");
-            checkEquipment();
+            showEquipment();
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
@@ -248,7 +248,7 @@ public class Brain extends SurgicalRobot{
             boolean doingSurgery = true;
             System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
             System.out.println("Here are the equipments you can use.");
-            checkEquipment();
+            showEquipment();
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
@@ -309,56 +309,94 @@ public class Brain extends SurgicalRobot{
         boolean surgeryStatus = true; //consider changing to false
         System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to randomly start the game. \nPress 5 to quit the game.");
         int surgeryChoice = input.nextInt();
+        String userChoice;
         while(surgeryStatus){
             if(surgeryChoice == 1){
                 newRobot.hemorrage(newRobot);
-                if(newRobot.getRound().contains(2) && newRobot.getRound().contains(3)){
-                    System.out.println("You have finished all the surgeries :))))))");
-                    surgeryChoice = 4;
-                }
-                else if(newRobot.getRound().contains(2)){
-                    surgeryChoice = 3;
-                }
-                else if(newRobot.getRound().contains(3)){
-                    surgeryChoice = 2;
+                System.out.println("Do you want to start the next surgery? (YES/NO)");
+                input.nextLine();
+                userChoice = input.nextLine();
+
+                if(userChoice.toLowerCase().equals("yes")){
+                    if(newRobot.getRound().size() != 3){
+                        if(newRobot.getRound().contains(2)){
+                            surgeryChoice = 3;
+                        }
+                        else if(newRobot.getRound().contains(3)){
+                            surgeryChoice = 2;
+                        }
+                        else{
+                            surgeryChoice = r.nextBoolean() ? 2 : 3;
+                        }
+                    }
+                    else{
+                        System.out.println("You have finished all the surgeries :))))))");
+                        surgeryChoice = 4;
+                    }
+                   
                 }
                 else{
-                    surgeryChoice = r.nextBoolean() ? 2 : 3;
-                }
+                    surgeryChoice = 4;
+                }    
                 
             }
             else if(surgeryChoice == 2){
                 newRobot.hematoma(newRobot);
-                if(newRobot.getRound().contains(1) && newRobot.getRound().contains(3)){
-                    System.out.println("You have finished all the surgeries :))))))");
-                    surgeryChoice = 4;
-                }
-                else if(newRobot.getRound().contains(1)){
-                    surgeryChoice = 3;
-                }
-                else if(newRobot.getRound().contains(3)){
-                    surgeryChoice = 1;
+
+                System.out.println("Do you want to start the next surgery? (YES/NO)");
+                input.nextLine();
+                userChoice = input.nextLine();
+                
+                if(userChoice.toLowerCase().equals("yes")){
+                    if(newRobot.getRound().size() != 3){
+                        if(newRobot.getRound().contains(1)){
+                            surgeryChoice = 3;
+                        }
+                        else if(newRobot.getRound().contains(3)){
+                            surgeryChoice = 1;
+                        }
+                        else{
+                            surgeryChoice = r.nextBoolean() ? 1 : 3;
+                        }
+                    }
+                    else{
+                        System.out.println("You have finished all the surgeries :))))))");
+                        surgeryChoice = 4;
+                    }
+                   
                 }
                 else{
-                    surgeryChoice = r.nextBoolean() ? 1 : 3;
-                }
+                    surgeryChoice = 4;
+                }    
                 
             }
             else if(surgeryChoice == 3){
                 newRobot.brainTumor(newRobot);
-                if(newRobot.getRound().contains(1) && newRobot.getRound().contains(2)){
-                    System.out.println("You have finished all the surgeries :))))))");
-                    surgeryChoice = 4;
-                }
-                else if(newRobot.getRound().contains(2)){
-                    surgeryChoice = 1;
-                }
-                else if(newRobot.getRound().contains(1)){
-                    surgeryChoice = 2;
+                System.out.println("Do you want to start the next surgery? (YES/NO)");
+                input.nextLine();
+                userChoice = input.nextLine();
+                
+                if(userChoice.toLowerCase().equals("yes")){
+                    if(newRobot.getRound().size() != 3){
+                        if(newRobot.getRound().contains(2)){
+                            surgeryChoice = 1;
+                        }
+                        else if(newRobot.getRound().contains(1)){
+                            surgeryChoice = 2;
+                        }
+                        else{
+                            surgeryChoice = r.nextBoolean() ? 1 : 2;
+                        }
+                    }
+                    else{
+                        System.out.println("You have finished all the surgeries :))))))");
+                        surgeryChoice = 4;
+                    }
+                   
                 }
                 else{
-                    surgeryChoice = r.nextBoolean() ? 1 : 2;
-                }
+                    surgeryChoice = 4;
+                } 
                 
             }
             else if(surgeryChoice == 4){
