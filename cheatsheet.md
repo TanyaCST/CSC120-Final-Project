@@ -29,6 +29,34 @@ elctrocautery device
 surgical suction device
 
 #BRANCH CLASS: Brain.java#
+Brain.java contains 3 surgeries. Users can choose to start the game with one of the game by pressing:
+1- hemorrage
+2- hematoma
+3- brain tumor
+If user wants to leave, press 4 at the beginning. After 1/2 rounds of game, type in *no*.
+
+*Surgery #1 Hemorrage()*
+*Surgery #2 Hematoma()*
+*Surgery #3 Brain Tumor()* share same design:
+There is a patient who *might* have hemorrage/hematoma/brain tumor and *might* need a surgery.
+
+The grading() method will determine whether this patient has such problem. 
+grading >= 5
+The patient needs a surgery. User can ask for guideline by pressing 2. The guide will show the equipments needed & proper treatments/methods of surgery.
+
+In the surgery, the user can grab equipments  (available equipments will be printed out one by one), add description of equipment (what is this equipments used for), and the usage of equipment (what do you want to do with this equipment).
+
+If you are done with the surgery, type in yes to choose another surgery or quit the game. If not, type in no to grab another equipment and use it.
+
+After you finished the surgery, the program will regrade your patient's health.
+-if grading > 5: the patient survives. the surgery is successful.
+-if grading < 5: the patient dies.
+
+grading < 5
+The patient does not need a surgery. type in yes to choose another surgery or quit the game.
+
+grading.max = 10
+grading.min = 1
 
 #BRANCH CLASS: HeartRobot.java#
 1- YES
