@@ -29,15 +29,15 @@ elctrocautery device
 surgical suction device
 
 #BRANCH CLASS: Brain.java#
+
 Brain.java contains 3 surgeries. Users can choose to start the game with one of the game by pressing:
-1- hemorrage
-2- hematoma
-3- brain tumor
+
+1- hemorrage/n
+2- hematoma/n
+3- brain tumor/n
 If user wants to leave, press 4 at the beginning. After 1/2 rounds of game, type in *no*.
 
-*Surgery #1 Hemorrage()*
-*Surgery #2 Hematoma()*
-*Surgery #3 Brain Tumor()* share same design:
+3 surgeries share the same design:
 There is a patient who *might* have hemorrage/hematoma/brain tumor and *might* need a surgery.
 
 The grading() method will determine whether this patient has such problem. 
