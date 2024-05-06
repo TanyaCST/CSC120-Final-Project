@@ -32,9 +32,12 @@ surgical suction device
 
 Brain.java contains 3 surgeries. Users can choose to start the game with one of the game by pressing:
 
-1- hemorrage/n
-2- hematoma/n
-3- brain tumor/n
+1- hemorrage
+
+2- hematoma
+
+3- brain tumor
+
 If user wants to leave, press 4 at the beginning. After 1/2 rounds of game, type in *no*.
 
 3 surgeries share the same design:
