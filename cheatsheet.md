@@ -44,4 +44,14 @@ max number of points that can be earned = 90
 min number of points that can be earned = 20
 
 #BRANCH CLASS: Liver.java#
+LiverRobot.java consists of four different operations based on a randomized number of patient condition severity from 0 to 6. The purpose of these is to walk the player through each step and familiarize people with the general steps of liver surgeries, while explaining their purpose.
 
+Severity Level 0 - diagnosticLaproscopy(): The player must follow the steps to enter text and perform a diagnostic laproscopy step by step on a patient. If they do not enter the correct word, they cannot move on.
+
+Severity Level 1 - liverResection(): The player must follow the steps to enter text and perform a liver resection step by step on a patient. If they do not enter the correct word, they cannot move on.
+
+Severity Level 2 - liverAblation(): The player must follow the steps to enter text and perform a radiofrequency liver ablation. If they do not enter the correct word, they cannot move on.
+
+Severity Level 3+ - liverTransplant(): The player must follow the steps to perform a liver transplant by entering the correct text. They cannot move on unless they enter the correct word.
+
+As there is lower risk of fatality during liver surgeries compared to heart and brain surgeries, there is no possibility of the patient dying.
