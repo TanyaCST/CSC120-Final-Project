@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Brain extends SurgicalRobot{
+public class BrainRobot extends SurgicalRobot{
     // attributes
     private String name;
     private String patientName;
@@ -15,7 +15,7 @@ public class Brain extends SurgicalRobot{
     /**
      * Constructor
      */
-    public Brain(String name, double xCoordinate, double yCoordinate, double size, String patientName){
+    public BrainRobot(String name, double xCoordinate, double yCoordinate, double size, String patientName){
         super(name, xCoordinate, yCoordinate, size);
         this.name = getName();
         this.patientName = patientName;
@@ -128,7 +128,7 @@ public class Brain extends SurgicalRobot{
     /** 
      * start the hemorrage surgery
      */
-    public void hemorrage(Brain newRobot){
+    public void hemorrage(BrainRobot newRobot){
         System.out.println("....Examinig patient...");
 
         // check the grading of hemmorage surgery qualification
@@ -190,7 +190,7 @@ public class Brain extends SurgicalRobot{
     /**
      * start the hematoma surgery
      */
-    public void hematoma(Brain newRobot){
+    public void hematoma(BrainRobot newRobot){
         System.out.println("....Examinig patient...");
         int grade = grading();
         if(grade >= 5){
@@ -246,7 +246,7 @@ public class Brain extends SurgicalRobot{
     /**
      * start the brain tumor surgery
      */
-    public void brainTumor(Brain newRobot){
+    public void brainTumor(BrainRobot newRobot){
         System.out.println("....Examinig patient...");
         int grade = grading();
         if(grade >= 5){
@@ -317,7 +317,7 @@ public class Brain extends SurgicalRobot{
         Random r = new Random();
 
         // generates a new surgical robot
-        Brain newRobot = new Brain("BrainRobot1", 0, 0, 50, "Justin");
+        BrainRobot newRobot = new BrainRobot("BrainRobot1", 0, 0, 50, "Justin");
 
         // start the game
         System.out.println("---------Welcome to Surgical Robot Simulator!!!------------");
@@ -326,7 +326,7 @@ public class Brain extends SurgicalRobot{
         System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to randomly start the game. \nPress 5 to quit the game.");
         int surgeryChoice = input.nextInt();
         String userChoice;
-        
+
         while(surgeryStatus){
             if(surgeryChoice == 1){
                 newRobot.hemorrage(newRobot);
