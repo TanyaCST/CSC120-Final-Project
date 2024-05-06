@@ -1,20 +1,20 @@
 # CSC120-FinalProject
 
 ## Deliverables:
- - Your final codebase
- - Your revised annotated architecture diagram
- - Design justification (including a brief discussion of at least one alternative you considered)
- - A map of your game's layout (if applicable)
+ - Your final codebase ## Is the way it is organized okay?
+ - Your revised annotated architecture diagram ##How do you want it?
+ - Design justification (including a brief discussion of at least one alternative you considered) ##Take a biref look please
+ - A map of your game's layout (if applicable) ##Not applicable for our game
  - `cheatsheet.md`
  - Completed `rubric.md`
   
 ## Additional Reflection Questions
  - What was your **overall approach** to tackling this project?
-   - Our overall approach was to plan the project out accordingly, figure out what we wanted to implement, and what we thought we might not have enough time to implement. We also tried to effectively communicate, staying in contact with each other for each step so that we were aware of what each of us were implementing.
+   - Our overall approach was to plan the project out accordingly, figure out what we wanted to implement, and what we thought we might not have enough time to implement. We also tried to effectively communicate, staying in contact with each other for each step so that we were aware of what we were all implementing.
 
  - What **new thing(s)** did you learn / figure out in completing this project?
-    - **Olohi:** reading files into a program, making a hashtable that stored several features of a key, working with a team, and making a program pause during execution(was really cool).
-    - **Tanya:** using random to choose between 2 numbers; let java pause for a few seconds before the next output; we can’t use the same scanner variable to loop, otherwise it will cause an exception.
+    - **Olohi:** reading files into a program, making a hashtable that stored several features of a key, working with a team, and making a program pause during execution (was really cool).
+    - **Tanya:** using random to choose between 2 numbers; allowing java pause for a few seconds before the next output. I also learnt we can’t use the same scanner variable to loop, otherwise it will cause an exception.
     - **Emily:** making sure the scanner doesn’t go into an infinite loop, and that using one scanner is enough, with just a need to change the scanner variables
 
  - Is there anything that you wish you had **implemented differently**?

@@ -1,3 +1,4 @@
+package Codebase;
 public interface Contract {
 
     void grab(String equipment);
