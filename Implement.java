@@ -1,4 +1,4 @@
-package Codebase;
+
 public class Implement {
     private boolean isClean;
     private String description;
