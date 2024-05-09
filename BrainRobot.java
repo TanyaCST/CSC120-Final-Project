@@ -1,4 +1,4 @@
-
+//imports packages
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class BrainRobot extends SurgicalRobot{
     /**
      * Provide General guide for all surgeries in Brain robot
      * Users need to be able to input the surgery they want to do
-     * Bascially, tell users what are equipments needed for each surgery and steps to accomplish the surgeries
+     * Basically, tell users what are equipments needed for each surgery and steps to accomplish the surgeries
      */
     public void guide(){
         // ask for userinput
