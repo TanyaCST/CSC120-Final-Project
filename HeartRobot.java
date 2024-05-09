@@ -114,7 +114,7 @@ public class HeartRobot extends SurgicalRobot {
     }
 
     /**
-     * valveStitch() stitches heart or artery after major surgical operation
+     * valveStitch() stitches heart or artery after major surgical operation. In level 3, it gets equipment needed for stitching from stitchMain().
      * @param stitchEquipment
      */
     public void valveStitch(String stitchEquipment){ //implement valve stitch in heart damage greater than 5
@@ -151,6 +151,7 @@ public class HeartRobot extends SurgicalRobot {
     }
 
     /**
+     * For use in Level 2! Stitch procedure--- to get equipment needed for stitch and excision. Itorks closely with the valveStitch() which performs the actual stitching
      * @param score
      */
     public void stitchMain(int score){

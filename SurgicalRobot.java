@@ -1,4 +1,4 @@
-
+//Note: Main game is in the subclasses. The main method here was just to test some functionalities
 //Import needed modules
 import java.io.EOFException;
 import java.util.ArrayList;
@@ -6,10 +6,6 @@ import java.util.Hashtable;
 import java.util.Stack;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;
-
-
-import javax.sound.midi.Soundbank;
-
 import java.util.Scanner;
 
 public class SurgicalRobot implements Contract{
@@ -20,7 +16,7 @@ public class SurgicalRobot implements Contract{
     private double yCoordinate;
     private double size; //Specifies robot's size
     private double originalSize;
-    private Stack<String> actions = new Stack<>();//Undo: Plan on appending each method. What do I pass in, not possibly a string? A method?
+    public Stack<String> actions = new Stack<>();//Undo: Plan on appending each method. 
     public String currentState; //Sets the currentState of the robot
     public Hashtable<String, Implement> inventory; //inventory with functions
     Scanner userInput = new Scanner(System.in); //reads input from the surgeon
@@ -103,40 +99,8 @@ public class SurgicalRobot implements Contract{
         return originalSize;
     }
 
-    /**
-     * get
-     * @return
-     */
-    public Stack<String> getActions(){
-        return actions;
 
-    }
-
-    /**
-     * get current state of robot
-     * @return
-     */
-    public String getCurrentState(){
-        return currentState;
-    }
-
-    /**
-     * get inventory
-     * @return
-     */
-    public Hashtable<String,Implement> getInventory(){
-        return inventory;
-    }
-
-    /**
-     * get active (a number that tells you is the robot active or not)
-     * @return
-     */
-    public int active(){
-        return active;
-    }
-
-    //methods
+    //Methods
     /**
      * Writes the action performed to "memory"
      * @param item
@@ -183,13 +147,13 @@ public class SurgicalRobot implements Contract{
      */
     public void grab(String equipment){ //Says function of object in canneddList
         if (this.inventory.contains(equipment)){
-            String function =  this.inventory.get(equipment.toLowerCase()).getDescription(); //gets the description of the equipement from its Implement class
+            String function =  this.inventory.get(equipment.toLowerCase()).getDescription(); //gets the description of the equipment from its Implement class
             System.out.println(function);
             System.out.println("I just grabbed " + equipment + "./n" + function);
             performAction("grab");
         }
         
-        //Not in inventory?
+        //If equipment not in inventory
         else{
             //Check bigger allowedEquipment store
             if (allowedEquipment.contains(equipment.toLowerCase())){
@@ -410,6 +374,9 @@ public class SurgicalRobot implements Contract{
         OlohIntel.showOptions();
         OlohIntel.rest(1000); //Pauses program for 1s ot make it more real
         System.out.println("I'mma grab an equipment to start work. What equipment do you want to use?");
+        System.out.println("Choose from one of the equipment below:");
+        OlohIntel.showEquipment();
+        System.out.println("Pick one of them");
         String equipment = OlohIntel.userInput.nextLine(); //Passes equipment to be used to the variable equipment
         OlohIntel.rest(1000);
         OlohIntel.grab(equipment); //Implements grab method
@@ -464,9 +431,9 @@ public class SurgicalRobot implements Contract{
         // OlohIntel.wake();
         
         //System.out.println(OlohIntel.actions);
-//         OlohIntel.undo();
-//         OlohIntel.rest();
-//         OlohIntel.fly(2,3);
+        //OlohIntel.undo();
+        //OlohIntel.rest();
+       // OlohIntel.fly(2,3);
         }
 
 

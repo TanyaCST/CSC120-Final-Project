@@ -233,7 +233,6 @@ public class LiverRobot extends SurgicalRobot {
     }
 
 
-
     public static void main(String[] args) {
         System.out.println("Welcome to the Liver Robot game!\n==============================\n");
         System.out.println("Press 1 to start the game, press any other key to quit.");

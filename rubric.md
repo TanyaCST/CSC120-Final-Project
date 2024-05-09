@@ -7,10 +7,15 @@ ___YES__ 2 pts: Submission includes a **cheat sheet** (`cheatsheet.md`) document
 ___YES__ 2 pts: Storyline driving the game is **engaging**, and individual elements of play make sense within the context of the story.
 
 ___YES__ 2 pts: Game has **multiple possible paths / outcomes** (i.e. gameplay depends on player's choices and is not the same every time).
+## To take note of is that in the third level of the Heart Robot game, the amount of time taken to replace the heart determines whether the patient survives or not--- decided to point out since it might not seem obvious at first.
 
-___N/A__ 1 pt: Gameplay supports **reversible moves** where reasonable (e.g., if you pick up an object, you should be able to put it back down again later, possibly in a different place; if you go north then you should be able to return to the previous location by going south unless something has blocked your return path).
+___YES__ 1 pt: Gameplay supports **reversible moves** where reasonable (e.g., if you pick up an object, you should be able to put it back down again later, possibly in a different place; if you go north then you should be able to return to the previous location by going south unless something has blocked your return path).
+
+## The way our game supports reversible moves isn't conventional. Reversible moves in the ocntext of a surgical game involves allowing the user to learn from errors made in decisions from previous game levels and make a different selection in next game level. 
 
 ___YES__ 1 pt: Some paths through the game have **restricted access** until the player has completed a task or acquired a specific item (i.e. a key to open a door, etc.).
+
+## All three subclasses require the user to pass a certain level to get to another.
 
 
 ## Back-End Design (10 pts)
@@ -31,18 +36,18 @@ ___YES__ 4 pts: Program compiles without errors or warnings.
 
 ___YES__ 2 pts: Executes fully & consistently without crashing (exception/freeze).
 
-_____ 2 pt: Complies with style guidelines (missing items 1 pt each):
+___YES__ 2 pt: Complies with style guidelines (missing items 1 pt each):
 
-      _____ Classes & class members all have Javadoc header comments.
+      ___YES__ Classes & class members all have Javadoc header comments.
 
-      _____ Clear and consistent indentation of bracketed sections.
+      ___YES__ Clear and consistent indentation of bracketed sections.
 
-      _____ Adheres to Java conventions on naming & capitalization.
+      __YES___ Adheres to Java conventions on naming & capitalization.
 
-      _____ Methods & variables all have clear and accurate names.
+      ___YES__ Methods & variables all have clear and accurate names.
 
-      _____ Methods avoid confusing side effects.
+      __YES___ Methods avoid confusing side effects.
 
-_____ 1 pt: All required files included with submission (including completed checklist file).
+___YES__ 1 pt: All required files included with submission (including completed checklist file).
 
-_____ 1 pt: `readme.md` contains your reflection on the project and responses to all prompts .
+___YES__ 1 pt: `readme.md` contains your reflection on the project and responses to all prompts .

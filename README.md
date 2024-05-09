@@ -1,9 +1,9 @@
 # CSC120-FinalProject
 
 ## Deliverables:
- - Your final codebase ## Is the way it is organized okay?
- - Your revised annotated architecture diagram ##How do you want it?
- - Design justification (including a brief discussion of at least one alternative you considered) ##Take a biref look please
+ - Your final codebase 
+ - Your revised annotated architecture diagram 
+ - Design justification (including a brief discussion of at least one alternative you considered)
  - A map of your game's layout (if applicable) ##Not applicable for our game
  - `cheatsheet.md`
  - Completed `rubric.md`
