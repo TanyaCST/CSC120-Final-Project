@@ -1,4 +1,4 @@
-//Note: Main game is in the subclasses. The main method here was just to test some functionalities
+//Note: Main game is in the subclasses. The main method here was just to test some functionalities--- still check it please. It's also fun.
 //Import needed modules
 import java.io.EOFException;
 import java.util.ArrayList;

@@ -18,6 +18,6 @@ scalpel
 retractor
 surgical knives
 rongeurs
-elctrocautery device
+electrocautery device
 surgical suction device
 

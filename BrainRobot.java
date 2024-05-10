@@ -130,7 +130,7 @@ public class BrainRobot extends SurgicalRobot{
      * start the hemorrage surgery
      */
     public void hemorrage(BrainRobot newRobot){
-        System.out.println("....Examinig patient...");
+        System.out.println("....Examining patient...");
 
         // check the grading of hemmorage surgery qualification
         int grade = grading();
@@ -192,7 +192,7 @@ public class BrainRobot extends SurgicalRobot{
      * start the hematoma surgery
      */
     public void hematoma(BrainRobot newRobot){
-        System.out.println("....Examinig patient...");
+        System.out.println("....Examining patient...");
         int grade = grading();
         if(grade >= 5){
             System.out.println("This patient fails to pass the hematoma grading. With a grading " + grade +", A surgery is needed");
@@ -248,7 +248,7 @@ public class BrainRobot extends SurgicalRobot{
      * start the brain tumor surgery
      */
     public void brainTumor(BrainRobot newRobot){
-        System.out.println("....Examinig patient...");
+        System.out.println("....Examining patient...");
         int grade = grading();
         if(grade >= 5){
             System.out.println("Unfortunately, This patient is tested positive the tumor grading. With a grading " + grade +", Surgery is needed");
@@ -261,6 +261,7 @@ public class BrainRobot extends SurgicalRobot{
             System.out.println("---------------Surgery starts. Please Grab the equipment you need.----------");
             System.out.println("Here are the equipments you can use.");
             showEquipment();
+            System.out.println("Choose an equipment");
             String grabEquip = userChoice.nextLine();
             newRobot.grab(grabEquip);
             newRobot.use(grabEquip);
@@ -275,7 +276,7 @@ public class BrainRobot extends SurgicalRobot{
                         System.out.println("You've tried your best to do the surgery, but unfortunately, this patient died. 😢");
                     }
                     else{
-                        System.out.println("The surgery is successful! Congradulations!🥳");
+                        System.out.println("The surgery is successful! Congratulations!🥳");
                     }
                     doingSurgery = false; 
                 }
