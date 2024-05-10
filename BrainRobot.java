@@ -325,7 +325,7 @@ public class BrainRobot extends SurgicalRobot{
         System.out.println("---------Welcome to Surgical Robot Simulator!!!------------");
         System.out.println("In this round, you will use Neurosurgery assistants to perform 3 types of brain surgeries. \n1. Hemorrage \n2. Hematoma \n3. Brain tumor");
         boolean surgeryStatus = true;
-        System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to randomly start the game. \nPress 5 to quit the game.");
+        System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to quit the game.");
         int surgeryChoice = input.nextInt();
         String userChoice;
 
