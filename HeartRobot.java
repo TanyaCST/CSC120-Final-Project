@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Scanner;
-// import java.io.*;
 
 
 public class HeartRobot extends SurgicalRobot {
@@ -67,7 +66,8 @@ public class HeartRobot extends SurgicalRobot {
      * Most advanced and final part of the surgical operation
      * @return int replacementSucess, tells whether the heart replacement process was sucessful
      */
-    public long heartReplace(){ //way to check time since execution?
+    public long heartReplace(){ 
+        //way to check time since execution
         long startTime1 = System.currentTimeMillis();
         String oldHeart = this.patient + "'s heart";
         String newHeart = "Donor's heart";
@@ -76,6 +76,7 @@ public class HeartRobot extends SurgicalRobot {
         rest(1000);
         int approveReplacement = userInput.nextInt();
         userInput.nextLine();
+        //approval loop
         while (approveReplacement != 1){
             System.out.println("You must enter 1 to proceed");
             approveReplacement = userInput.nextInt();
@@ -83,15 +84,16 @@ public class HeartRobot extends SurgicalRobot {
         }
         rest(restTime);
         System.out.println("----------------Fixing machine onto heart valve 1. Might take a while-----------");
-        rest(10000);
+        rest(10000); //makses surgery rest for 10s
         grab("Heart-Lung Machine");
         this.heartParts.add(newHeart); //Adds newHeart to the inventory
         this.trashNurse.put(oldHeart, " Dispose in waste facility"); //calls trash nurse to dispose oldheart
         rest(restTime);
         System.out.println("Called trashnurse to dispose the removed heart into the waste facility");
         long startTime2 = System.currentTimeMillis();
-        long replacementTime = (startTime2 - startTime1)/1000;
+        long replacementTime = (startTime2 - startTime1)/1000; //Calculates total time elapsed
         System.out.println(replacementTime);
+        //Length of time taken by the user to fix the patient's heart determines whether they failed or not
         if (replacementTime <= 25){
             System.out.println(oldHeart + " replaced in " + replacementTime + "s! Congratulations, " + this.patient + " survived..");}
         if (replacementTime > 25){
@@ -101,6 +103,7 @@ public class HeartRobot extends SurgicalRobot {
     }
     
     /**
+     * @param equipment
      * Grabs an equipment from the inventory
      */
     public void grab(String equipment){
@@ -155,7 +158,9 @@ public class HeartRobot extends SurgicalRobot {
      * @param score
      */
     public void stitchMain(int score){
-        System.out.println("By choosing from one of the allowed equipments in level 1, enter the excision equipment you'd like to use.");
+        System.out.println("By choosing from one of the allowed equipments below, enter the excision equipment you'd like to use.");
+        showEquipment();
+        //excision equipment selection
         String excisionEquipment = userInput.nextLine().toLowerCase();
         while (!(allowedEquipment.contains(excisionEquipment))){
             System.out.println("You must choose from one of the equipments shown");
@@ -164,6 +169,7 @@ public class HeartRobot extends SurgicalRobot {
         }
         rest(1000);
         System.out.println("Enter the stitch equipment.");
+        //stitch equipment selection
         String stitchEquipment = userInput.nextLine().toLowerCase();
         while (!(allowedEquipment.contains(stitchEquipment))){
             System.out.println("You must choose from one of the equipments shown");
@@ -179,14 +185,14 @@ public static void main(String[] args) {
     Scanner userInput = new Scanner(System.in); //initializes scanner for user'sinput
     int score = 0;
 
-    //Introduction
+    //Introduction to HeartRobot game
     System.out.println("🏥🏥Welcome to SurgicalAdventure in Nigeria🇳🇬🏥🏥");
     System.out.println("In this round of surgical adventure, you can use the RAS heart assistant to perform three types of heart surgeries");
     System.out.println("Heart transplant corresponds to level 1\ngraftArtery corresponds to level 2\nheartReplacement corresponds to level 3");
     System.out.println("You must pass each level to get to the next. To quit the game, hit Ctrl +D when prompted 'Enter any value to continue to level 1.'");
     System.out.println("---------------------Let's get started!--------------------------");
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) { 
-        //Controls the game's exiting
+        //Next three lines control the game's exiting
         String input;
         System.out.println("Welcome to heart transplant. Enter any value to continue to level 1");
         while ((input = reader.readLine()) != null) { // readLine returns null on EOF
@@ -196,7 +202,7 @@ public static void main(String[] args) {
             System.out.println(HAS);
             System.out.println("Do you want to see the show options? Enter 1 for Yes and 2 for No");
             if ((userInput.nextInt() == 1)){
-                HAS.showOptions();
+                HAS.showOptions(); //shows what the robot can do
             }
             userInput.nextLine(); //Clears out "enter" reserved after calling scanner.nextInt();
             String welcome1 = ("-------------Welcome to the first level of heart surgical adventure-------\nUpon completing this level, you'll be promoted to level 2 or level 3 depending on your level of surgical expertise.\n---------Enter 1 to agree to the above terms and conditions or 2 to disagree---------");
@@ -220,7 +226,7 @@ public static void main(String[] args) {
             System.out.println("..............." + HAS.name + " is performing a quick dialysis prep on " + HAS.patient);
             HAS.rest(500);
             System.out.println("---------This might take a while. Wait patiently until prompted-------------");
-            HAS.rest(10000);
+            HAS.rest(10000); //Makes robot rest for 10s
             if (heartDamage < 6){
                 System.out.println("Dialysis prep completed! " + "\n......To graft out the infected artery, you'll need an excision equipment and a stitch equipment......");
                 HAS.rest(2000);
@@ -228,6 +234,7 @@ public static void main(String[] args) {
                 HAS.showEquipment();//Shows the equipment that are allowed
                 System.out.println("By choosing from one of the equipments in the list, enter the excision equipment you'd like to use.");
                 String excisionEquipment = userInput.nextLine().toLowerCase();
+                //While loop to ensure the user chooses only an allowed equipment--- space sensitive too
                 while (!(HAS.allowedEquipment.contains(excisionEquipment))){
                     System.out.println("You must choose from one of the equipments shown");
                     HAS.showEquipment();
@@ -247,15 +254,16 @@ public static void main(String[] args) {
                 HAS.graftArtery(excisionEquipment, stitchEquipment);
                 System.out.println("Artery's been successfully grafted✅. Congratsss, you won level 1 and 2!!🎉🎉");
                 System.out.println("Your level of expertise qualifies you for level 3");
-                score += 20;
+                score += 20; //increments core by 20 if user completes level 1 and 2 sucessfully
                 System.out.println("You scored " + score + ". Continue to level 3 to earn more points! ");
                 HAS.rest(1000);
                 System.out.println("Click 1 to continue and 2 to quit game");
                 int quitGame = userInput.nextInt();
                 userInput.nextLine();
                 if (quitGame == 1){
-                    heartDamage = 6; //Trick to move user to the next level. If user puts 1, the heartDamage automatically passes the level 3 if block test in 234
+                    heartDamage = 6; //Moves user to the next level. If user puts 1, the heartDamage automatically passes the level 3 "if block" test in line 234
                 }
+                //Logic to quit game
                 else if (quitGame == 2){
                     System.out.println("End of input detected. Exiting.");
                     System.exit(1);}
@@ -263,7 +271,7 @@ public static void main(String[] args) {
 
             //Game execution logic for level 3
             if (heartDamage > 5){
-                score += 30;
+                score += 30; //score automatically increments by 30 if user enters level 3
                 System.out.println("Dialysis prep completed! " + "\n......To replace heart, you'll need a new heart from a donor. Enter 1 if that's available......");
                 int newHeart = userInput.nextInt();
                 while (newHeart != 1){
@@ -275,18 +283,22 @@ public static void main(String[] args) {
                 System.out.println("To take out old heart, you need an equipment to remove heart (excision equipment) and to stitch new heart (stitch equipment)");
                 HAS.rest(1000);
                 HAS.stitchMain(score);
-                System.out.println("-------------------Just completed level 1✅. Moving you to Level 3: heartReplace()🎊🎊----------------"); //implement quit if you like
+                System.out.println("-------------------Just completed successful stitch✅. Moving you to Level 3: heartReplace()🎊🎊----------------"); //implement quit if you like
 
-                long replacementSucess = HAS.heartReplace(); // must be 1 to get here
-                if (replacementSucess > 30){
-                    score -= 10;
+                long replacementSucess = HAS.heartReplace(); //collects the amount of time replacement took
+                
+                //Block for successful replacement
+                if (replacementSucess > 25){
+                    score -= 10;//if patient dies, score reduces by 10
                     System.out.println("Congrats on completing level 3\nUnfortunately, you lost the game for losing the patient🥶🙁😣\n" + "It took you " + replacementSucess + "s to replace the heart. That's too much time to leave a patient without a natural heart.");
                     HAS.rest(HAS.restTime);
                     System.out.println("Your final score is " + score);
                     System.exit(1);
                 }
-                if (replacementSucess < 30){
-                    score += 30;
+
+                //Block for unsuccessful replacement
+                if (replacementSucess <= 25){
+                    score += 30;//if patient survives, score increases by 30
                     System.out.println("You completed the most difficult level! You are officially a surgeon🎉🎊🤣");
                     HAS.rest(1000);
                     System.out.println("Your final score is pretty high: " + score + " points. You should be proud of yourself.");
@@ -294,8 +306,9 @@ public static void main(String[] args) {
                 }    
         }}
             System.out.println("End of input detected. Exiting.");
-     }
-         catch(IOException e) {
+     } 
+        //For the try (bufferReader loop at the beginning of the game--- exits if user presses Ctrl +D when prompted to enter anything to start game)
+        catch(IOException e) {
         e.printStackTrace();
     }
     userInput.close();
