@@ -3,8 +3,8 @@
 This file will contain documentation for all commands available in your game.
 Note:  It's a good idea to also make this list available inside the game, in response to a `HELP` command.
 
-## Note: We do not have a help command because the interactive nature of the game largely instructs the user on what to do next in each step. For example, when prompted to select an equipment, we show the user what equipments they can choose from.
-## Also, the main method in SurgicalRobot (the parent class) is to test the functionalities of the methods implemented. The real game is in the subclasses' main methods
+''' NOTE: We do not have a help command because the interactive nature of the game largely instructs the user on what to do next in each step. ''' For example, when prompted to select an equipment, we show the user what equipments they can choose from.
+## Also, the main method in SurgicalRobot (the parent class) is to test the functionalities of the methods implemented. The real game is in the subclasses' main methods. We ask that when grading the logic/accuracy/efficiency of the game, you grade each person based on the class assigned to them, ie BainRobot for Tanya, HeartRobot for Olohi, and LiverRobot for Tanya. Other things like underlying story (which is largely the same), architecture diagram, etc, can be graded as a group.
 
 # SPOILER ALERT
 If your game includes challenges that must be overcome to win, also list them below.

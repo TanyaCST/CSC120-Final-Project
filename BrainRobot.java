@@ -65,13 +65,12 @@ public class BrainRobot extends SurgicalRobot{
 
     /**
      * Provide General guide for all surgeries in Brain robot
-     * Users need to be able to input the surgery they want to do
-     * Basically, tell users what are equipments needed for each surgery and steps to accomplish the surgeries
+     * Basically, tells users what are equipments needed for each surgery and steps to accomplish the surgeries
      */
     public void guide(){
         // ask for userinput
-        System.out.println("This is a guide for Neurosugeries you can perform in this game. Which one do you want to check? \n1. Hemorrage \n2. Hematoma \n3. Brain Tumor");
-        System.out.println("If you made a typo, press 4 to quit.");
+        System.out.println("This is a guide for Neurosugeries you can perform in this game. Which one do you want to check? \nEmter 1 for Hemorrage \nEnter 2 for Hematoma \nEnter 3 for Brain Tumor");
+        System.out.println("If you made a typo, press 4 to quit guide.");
         int inputInt = userInput.nextInt();
 
         // based on user choice
@@ -128,6 +127,7 @@ public class BrainRobot extends SurgicalRobot{
 
     /** 
      * start the hemorrage surgery
+     * @param newRobot
      */
     public void hemorrage(BrainRobot newRobot){
         System.out.println("....Examining patient...");
@@ -325,15 +325,15 @@ public class BrainRobot extends SurgicalRobot{
         System.out.println("---------Welcome to Surgical Robot Simulator!!!------------");
         System.out.println("In this round, you will use Neurosurgery assistants to perform 3 types of brain surgeries. \n1. Hemorrage \n2. Hematoma \n3. Brain tumor");
         boolean surgeryStatus = true;
-        System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to randomly start the game. \nPress 5 to quit the game.");
+        System.out.println("Press 1, 2, or 3 to start with the surgery you want to perform. \nPress 4 to quit the game.");
         int surgeryChoice = input.nextInt();
+        input.nextLine();
         String userChoice;
 
         while(surgeryStatus){
             if(surgeryChoice == 1){
                 newRobot.hemorrage(newRobot);
                 System.out.println("Do you want to start the next surgery? (YES/NO)");
-                input.nextLine();
                 userChoice = input.nextLine();
 
                 if(userChoice.toLowerCase().equals("yes")){
@@ -363,7 +363,7 @@ public class BrainRobot extends SurgicalRobot{
                 newRobot.hematoma(newRobot);
 
                 System.out.println("Do you want to start the next surgery? (YES/NO)");
-                input.nextLine();
+                // input.nextLine();
                 userChoice = input.nextLine();
                 
                 if(userChoice.toLowerCase().equals("yes")){
@@ -392,7 +392,7 @@ public class BrainRobot extends SurgicalRobot{
             else if(surgeryChoice == 3){
                 newRobot.brainTumor(newRobot);
                 System.out.println("Do you want to start the next surgery? (YES/NO)");
-                input.nextLine();
+                // input.nextLine();
                 userChoice = input.nextLine();
                 
                 if(userChoice.toLowerCase().equals("yes")){
